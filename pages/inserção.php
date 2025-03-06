@@ -96,17 +96,17 @@
                 <button type="button" class="tablinks" onclick="openTab(event, 'efetivo')">Efetivo</button>
                 <button type="button" class="tablinks" onclick="openTab(event, 'tipos')">Tipos de Operação</button>
                 <button type="button" class="tablinks" onclick="openTab(event, 'recursos')">Recursos Provisionados</button>
-                <button type="button" class="tablinks" onclick="openTab(event, 'outras')">Outras Informações</button>
+                <button type="button" class="tablinks" onclick="openTab(event, 'outras')">Informações</button>
                 <button type="button" class="tablinks" onclick="openTab(event, 'anexos')">Anexos</button>
             </div>
 
             <!-- Seção 1: Dados da Operação -->
             <div id="dados" class="tab-content active">
                 <label for="operacao">Nome da Operação:</label>
-                <input id="input" type="text" name="operacao" id="operacao" required>
+                <input id="input" type="text" name="operacao" id="operacao" placeholder="Operação" required>
 
                 <label for="estado">Estado(UF):</label>
-                <select id="input" id="estado" name="estado" class="">
+                <select id="input" id="estado" name="estado" class="" required>
                     <option value="">Selecione o estado</option>
                     <option value="Acre">Acre</option>
                     <option value="Alagoas">Alagoas</option>
@@ -139,12 +139,12 @@
                 </select>
 
                 <label for="missao">Missão:</label>
-                <input id="input" type="text" name="missao" id="missao" required>
+                <input id="input" type="text" name="missao" placeholder="Missão" id="missao" required>
 
                 
         
                 <label for="comando">Comando Militar de Área:</label>
-                <select id="input" id="comando" name="cma" class="">
+                <select id="input" id="comando" name="cma" class="" required>
                     <option value="">Selecione o Comando Militar de Área</option>
                     <option value="Comando Militar da Amazônia">Comando Militar da Amazônia</option>
                     <option value="Comando Militar do Leste">Comando Militar do Leste</option>
@@ -157,7 +157,7 @@
                 </select>
               
                 <label for="rm">Região Militar:</label>
-                <select id="input" id="rm" name="rm" class="">
+                <select id="input" id="rm" name="rm" class="" required>
                     <option value=""> Selecione a Região Militar</option>
                     <option value="1ª região militar">1ª região militar</option>
                     <option value="2ª região militar">2ª região militar</option>
@@ -174,10 +174,10 @@
                 </select>
 
                 <label for="comandoOp">Comando da Operação:</label>
-                <input id="input" type="text" name="comandoOp" id="comandoOp" required>
+                <input id="input" type="text" name="comandoOp" placeholder="Comando da Operação" id="comandoOp" required>
                 
                 <label for="OrgApoiada">Organização Apoiada:</label>
-                <input id="input" type="text" name="comandoApoiado" id="OrgApoiada" required>
+                <input id="input" type="text" name="comandoApoiado" placeholder="Organização Apoiada" id="OrgApoiada" required>
                 
                 <label for="inicioOp">Ínicio da operação:</label>
                 <input id="input" type="date" name="inicioOp" id="inicioOp" required>
@@ -189,29 +189,29 @@
             <!-- Seção 2: Efetivo -->
             <div id="efetivo" class="tab-content">
 
-                <label for="efetivoTotal">Efetivo:</label>
-                <input id="input" type="text" name="participantes" id="efetivoTotal" required>
+                <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
+                <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required>
 
                 <label for="efetivoEb">Efetivo Exército Brasileiro:</label>
-                <input id="input" type="number" name="participantesEb" id="efetivoEb" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesEb" id="efetivoEb" required>
 
                 <label for="efetivoMa">Efetivo Marinha do Brasil :</label>
-                <input id="input" type="number" name="participantesMb" id="efetivoMa" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesMb" id="efetivoMa" required>
                 
                 <label for="efetivoFAB">Efetivo Força Aérea Brasil :</label>
-                <input id="input" type="number" name="participantesFab" id="efetivoFAB" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesFab" id="efetivoFAB" required>
                 
                 <label for="efetivoOrgSeg">Efetivo Órgãos de Segurança e Ordenamento Pública:</label>
-                <input id="input" type="number" name="participantesOs" id="efetivoOrgSeg" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesOs" id="efetivoOrgSeg" required>
 
                 <label for="efetivoAgencia">Efetivo de outras Agências Governamentais:</label>
-                <input id="input" type="number" name="participantesGov" id="efetivoAgencia" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesGov" id="efetivoAgencia" required>
 
                 <label for="efetivoPriv">Efetivo de outras Agências Privadas:</label>
-                <input id="input" type="number" name="participantesPv" id="efetivoPriv" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesPv" id="efetivoPriv" required>
 
                 <label for="efetivoNaoGov">Efetivo de Organizações Não-Governamentais:</label>
-                <input id="input" type="number" name="participantesCv" id="efetivoNaoGov" required>  
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesCv" id="efetivoNaoGov" required>  
             </div>
 
             <!-- Seção 3: Tipos de Operação 
@@ -223,7 +223,7 @@
                     <input id="input" id="tipo_operacao" name="" value="<?php echo $funcao;?>" disabled >
                 
                 <label for="">Tipo de ação ou apoio:</label>
-                <select id="input" id="" name="acaoOuApoio" class="">
+                <select id="input" id="" name="acaoOuApoio" class="" required>
                     <option value="">Selecione o tipo de Ação ou Apoio</option>
                     <option value="Logística para Operações de Garantia da Soberania">Logística para Operações de Garantia da Soberania</option>
                     <option value="Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)">Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)</option>
@@ -234,9 +234,9 @@
                 </select>
                 <hr>
                 <label for="apoioDesempenhado">Ação ou Apoio Desempenhado:</label>
-         
+                <br>
                 <label for="">Transporte:</label>
-                <select id="input" id="" name="transporte" class="">
+                <select id="input" id="" name="transporte" class="" >
                     <option value="">Selecione a Classe</option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
@@ -252,10 +252,10 @@
                 </select>
 
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="number" name="desTransporte" id="" placeholder="Transporte" > 
+                <input id="input" type="text" name="desTransporte"  id="" placeholder="Transporte" > 
 
                 <label for="">Manunteção:</label>
-                <select id="input" id="" name="manuntecao" class="">
+                <select id="input" id="" name="manuntecao"  class="">
                 <option value="">Selecione a Classe</option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
@@ -270,10 +270,10 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="number" name="desManuntencao" id="" placeholder="Manuntenção" > 
+                <input id="input" type="text" name="desManuntencao" id=""  placeholder="Manuntenção" > 
 
                 <label for="">Suprimento:</label>
-                <select id="input" id="" name="suprimento" class="">
+                <select id="input" id="" name="suprimento"  class="">
                 <option value="">Selecione a Classe</option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
@@ -288,10 +288,10 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="number" name="desSuprimento" id="" placeholder="Suprimento" > 
+                <input id="input" type="text" name="desSuprimento"  id="" placeholder="Suprimento" > 
 
                 <label for="">Aviação:</label>
-                <select id="input" id="" name="aviacao" class="">
+                <select id="input" id="" name="aviacao"  class="">
                 <option value="">Selecione a Classe</option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
@@ -306,7 +306,7 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="number" name="desAviacao" id="" placeholder="Aviação" > 
+                <input id="input" type="text" name="desAviacao"  id="" placeholder="Aviação" > 
             
             </div>
 
@@ -314,24 +314,28 @@
             <div id="recursos" class="tab-content">
 
             <label for="recebidos">Recebidos (R$):</label>
-            <input id="input" type="number" id="recebidos" name="recebidos" placeholder="R$ 0,00">
+            <input id="input" type="number" id="recebidos" name="recebidos" required placeholder="R$ 0,00">
             
             <label for="descentralizados">Descentralizados (R$):</label>
-            <input id="input" type="number" id="descentralizados" name="descentralizados" placeholder="R$ 0,00">
+            <input id="input" type="number" id="descentralizados" name="descentralizados" required placeholder="R$ 0,00">
             
             <label for="liquidados">Liquidados (R$):</label>
-            <input id="input" type="number" id="liquidados" name="liquidados" placeholder="R$ 0,00">
+            <input id="input" type="number" id="liquidados" name="liquidados" required placeholder="R$ 0,00">
             
             <label for="devolvolvidos">Devolvolvidos (R$):</label>
-            <input id="input" type="number" id="devolvolvidos" name="devolvidos" placeholder="R$ 0,00">
+            <input id="input" type="number" id="devolvolvidos" name="devolvidos" required placeholder="R$ 0,00">
 
             </div>
 
             <!-- Seção 5: Outras Informações -->
             <div id="outras" class="tab-content">
-                <label for="informacoes">Outras Informações:</label>
+                <label for="informacoes"> Síntese da Operação:</label>
+                <textarea name="outrasInfos" id="input" id="informacoes" required rows="2"></textarea>
+                <hr>
+                <label for="informacoes"> Outras Informações:</label>
                 <textarea name="outrasInfos" id="informacoes" rows="4"></textarea>
             </div>
+            
 
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">

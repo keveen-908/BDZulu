@@ -147,6 +147,7 @@ $submit= $_POST['submit'];
 
 if ($submit) {
 
+  $usuario = $nomeUsuario;
   /* insere os dados das operacoes */
 
   $sql = "INSERT INTO operacao (operador, operacao,estado, missao, cma, rm, comandoOp, comandoApoio, inicioOp, fimOp, tipoop) VALUES ('$usuario', '$operacao', '$estado', '$missao','$cma', '$rm', '$comandoOp', '$comandoApoio', '$inicioOp', '$fimOp', '$tipoOp')";

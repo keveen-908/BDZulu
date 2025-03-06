@@ -8,13 +8,20 @@
         $senha = $_POST["senha"];
         $pesquisaLogin = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
         
-        $resultado = $mysqli->query($pesquisaLogin);       
+        $resultado = $mysqli->query($pesquisaLogin);
+        $linha = $resultado->fetch_array();  
+        $nomeUsuario = $linha['nome'];     
         //
 
         if(mysqli_num_rows($resultado)>0){
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
-            header("Location: index.php");  
+
+            $insert="INSERT INTO loglogin (nome, data) VALUES ('$nomeUsuario', NOW())";
+            $mysqli->query($insert);
+            
+            header("Location: index.php");
+            	  
         }else{
             $erro = "Usuário e/ou senha inválido(s), Tente novamente!";
             unset($_SESSION['email']);

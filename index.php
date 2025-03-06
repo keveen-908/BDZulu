@@ -144,7 +144,7 @@ include("acoes/config.php");
                                         </a>
                                     </li>                                                        
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="acoes/logout.php">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -177,14 +177,14 @@ include("acoes/config.php");
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html">
+                                            <a href="index.php?p=minhasOp">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Minhas Operações</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="breadcrumb.html">
+                                            <a href="index.php?p=todasOp">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Todas Operações</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -232,7 +232,7 @@ include("acoes/config.php");
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="">
+                                            <a href="index.php?p=admin">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Designação de Funções</span>
                                                 <span class="pcoded-mcaret"></span>
