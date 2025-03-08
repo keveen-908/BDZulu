@@ -80,7 +80,7 @@ create table anexos (
 );
 create table logins(
     lid int PRIMARY KEY  auto_increment,
-    usuario varchar(255),
+    nome varchar(255),
     operacao varchar(255),
     data datetime
 );

@@ -79,6 +79,33 @@
                         Pesquisar
                     </button>
                 </form> <br>
+                
+                <form id="form-pesquisa" method="POST">
+                  <input type="text" id="buscar" name="buscar" placeholder="Pesquisar...">
+                  <button type="submit">Buscar</button>
+                </form>
+
+                <ul id="resultados"></ul>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                $(document).ready(function(){
+                    $("#form-pesquisa").submit(function(event){
+                        event.preventDefault(); // Evita o redirecionamento da página
+
+                        var busca = $("#buscar").val();
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: "/pesquisaAdm.php",
+                            data: { buscar: busca },
+                            success: function(response) {
+                                $("#resultados").html(response);
+                            }
+                        });
+                    });
+                });
+                </script>
 
                 <table class="table">
                     <thead>

@@ -1,14 +1,6 @@
 <?php 
 include("acoes/config.php");
 
-
-//leitura das paginas do sistema
-    $pagina = "inicial.php";
-    if(isset($_GET['p'])){
-
-        $pagina = $_GET['p'] . '.php';
-
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -206,7 +198,7 @@ include("acoes/config.php");
                                 </li>
                                 <?php } ?>
                                 <li>
-                                    <a href="/pesquisaOp.php">
+                                    <a href="pesquisaOp.php">
                                         <span class="pcoded-micon"><i class="ti-search"></i><b>FC</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Pesquisa</span>
                                         <span class="pcoded-mcaret"></span>
@@ -254,63 +246,17 @@ include("acoes/config.php");
                             </ul>
                         </div>
                     </nav>
+                    <!-- CONTEÚDO -->
                     <div class="pcoded-content">
-                        <div class="pcoded-inner-content">
-                            <div class="main-body">
-                                <div class="page-wrapper">
-                                    <?php include("pages/$pagina");?>                    
-                                </div>
-                            </div>
-                        </div>
+                        
+                    
+
+                    
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Warning Section Starts -->
-        <!-- Older IE warning message -->
-    <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
-<!-- Warning Section Ends -->
+      
 <!-- Required Jquery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
