@@ -412,10 +412,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md- col-xl-12">
-                                                <div class="card widget-card-9">
+                                                <div class="card widget-card-9 table-bordered">
                                                     <input type="text" class="form-control" id="input-busca"  placeholder="Pesquisar Operação" >
                                                     
-                                                    <table class="table">
+                                                    <table class="table table-hover table-bordered" >
                                                         <thead>
                                                             <tr>
                                                             <th >Operação</th>
@@ -427,8 +427,8 @@
                                                             <th >Comando Apoiado</th>
                                                             <th >Inicio da Operação</th>
                                                             <th >Fim da Operação</th> 
-                                                            <th >Completo</th>
-                                                            <th >Editar</th>
+                                                            <th >Açoes</th>
+                                                            
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tabela-operacoes">
@@ -454,8 +454,11 @@
                                                                 echo "<td>".date_format(date_create_from_format('Y-m-d', $dados["inicioOp"]), 'd/m/Y')."<td>"; 
                                                                 echo date_format(date_create_from_format('Y-m-d', $dados["fimOp"]), 'd/m/Y');
                                                             ?>    
-                                                                <td class="px-6 py-4"><a style="cursor: pointer;" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="abrirPesquisa(<?php echo $dados['opid']; ?>)" > Abrir </a> </td>
-                                                                <td class="px-6 py-4"><a style="cursor: pointer; " class="content-center font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="abrirEdicao(<?php echo $dados['opid']; ?>)" > Editar </a> </td>
+                                                                <td class="btn-sm">
+                                                                    <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-success btn-sm'> Editar </button>
+                                                                    <button onclick="Excluir(<?php echo $dados['opid']; ?>)" class='btn btn-danger btn-sm'> Excluir </button>
+                                                                    <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-primary btn-sm'>Expandir</button>
+                                                                </td>
                                                             <?php
                                                             }
                                                             ?>
@@ -554,10 +557,13 @@ var nav = $('.fixed-button');
  });
 </script>
 <script>
-      function abrirPesquisa(id) {
+      function Expandir(id) {
         window.open('/app/pesquisa/completo.php?id=' + id, '_blank');
       }
-      function abrirEdicao(id) {
+      function Edicao(id) {
+        window.open('pages/editar_Op.php?id=' + id, '_blank');
+      }
+      function Excluir(id) {
         window.open('/app/insercao/update.php?id=' + id, '_blank');
       }
 
