@@ -214,13 +214,11 @@
                 <input id="input" type="number" placeholder="Quantidade:0" name="participantesCv" id="efetivoNaoGov" required>  
             </div>
 
-            <!-- Seção 3: Tipos de Operação 
-             <label for="descricao_tipo">Descrição do Tipo:</label>
-                <textarea name="descricao_tipo" id="descricao_tipo" rows="4" required></textarea> 
-            -->
+            <!-- Seção 3: Tipos de Operação--> 
+            
             <div id="tipos" class="tab-content">
                 <label for="tipo_operacao">Tipo de Operação:</label>
-                    <input id="input" id="tipo_operacao" name="" value="<?php echo $funcao;?>" disabled >
+                    <input id="input" id="tipo_operacao" name="tipoOp" value="<?php echo $funcao;?>" disabled >
                 
                 <label for="">Tipo de ação ou apoio:</label>
                 <select id="input" id="" name="acaoOuApoio" class="" required>

@@ -427,9 +427,12 @@
       <th scope="col" class="px-6 py-3">
       Missão
       </th>
-      <th scope      Comando Militar de Área
+      <th scope="col" class="px-6 py-3">
+      Estado
       </th>
-      
+      <th scope="col" class="px-6 py-3">
+        Comando Militar de Área
+      </th>
       <th scope="col" class="px-6 py-3">
       Região Militar
       </th>
@@ -591,8 +594,5 @@
 
       </script>
       </table>
-</div>="col" class="px-6 py-3">
-      Estado
-      </th>
-      <th scope="col" class="px-6 py-3">
+</div>
 

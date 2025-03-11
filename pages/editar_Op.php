@@ -1,9 +1,36 @@
 <?php
+    
     include_once('../acoes/config.php');
     $id = $_REQUEST['id'];
+    //pesquisa operacao
     $sql = "SELECT * FROM operacao WHERE opid = " . $id;
     $res = $mysqli->query($sql);
     $row = $res->fetch_object();
+    //pesquisa efetivo
+    $sql = "SELECT * FROM efetivo WHERE eid = " . $id;
+    $res = $mysqli->query($sql);
+    $rowEfetivo = $res->fetch_object();
+    //pesquisa tipos
+    $sql = "SELECT * FROM tipoop WHERE tid = " . $id;
+    $res = $mysqli->query($sql);
+    $rowTipos = $res->fetch_object();
+    //pesquisa recursos
+    $sql = "SELECT * FROM recursos WHERE rid = " . $id;
+    $res = $mysqli->query($sql);
+    $rowRecursos = $res->fetch_object();
+    //pesquisa outras   
+    $sql = "SELECT * FROM infos WHERE iid = " . $id;
+    $res = $mysqli->query($sql);
+    $rowInfo = $res->fetch_object();
+
+    $sinteseOp = ($rowInfo->sinteseOp);
+    $outrasInfos = ($rowInfo->outrasInfos);
+
+    
+
+    
+    
+    
 
     
 
@@ -14,6 +41,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <title>Inserção</title>
     <style>
         body {
@@ -92,8 +121,8 @@
 </head>             
 <body>
     
-    <div class="container">
-        <h2 style="text-align:center;">Editar Operação</h2>
+    <div class="container table-sm">
+        <h1 style="text-align:center;">Editar Operação</h1>
 
         <form action="../acoes/acao.php" method="POST">
             <input type="hidden" name="acao" value="editar">
@@ -196,10 +225,160 @@
 
             <!-- Resolver situacao do"tipo op" -->
             <!--IR COLOCANDO AS PERGUNTAS POR SESSAO E CORRIGINDO ERROS E PESQUISA SQL -->
-           
+           <!-- Seção 2: Efetivo -->
+           <div id="efetivo" class="tab-content">
 
+                <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
+                <input id="input" type="text" name="participantes" value="<?php print $rowEfetivo->participantes;?>" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required>
+
+                <label for="efetivoEb">Efetivo Exército Brasileiro:</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesEb;?>" name="participantesEb" id="efetivoEb" required>
+
+                <label for="efetivoMa">Efetivo Marinha do Brasil :</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesMb;?>" name="participantesMb" id="efetivoMa" required>
+
+                <label for="efetivoFAB">Efetivo Força Aérea Brasil :</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesFab;?>" name="participantesFab" id="efetivoFAB" required>
+
+                <label for="efetivoOrgSeg">Efetivo Órgãos de Segurança e Ordenamento Pública:</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesOs;?>" name="participantesOs" id="efetivoOrgSeg" required>
+
+                <label for="efetivoAgencia">Efetivo de outras Agências Governamentais:</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesGov;?>" name="participantesGov" id="efetivoAgencia" required>
+
+                <label for="efetivoPriv">Efetivo de outras Agências Privadas:</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesPv;?>" name="participantesPv" id="efetivoPriv" required>
+
+                <label for="efetivoNaoGov">Efetivo de Organizações Não-Governamentais:</label>
+                <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesCv;?>" name="participantesCv" id="efetivoNaoGov" required>  
+            </div>
+
+            <!-- Seção 3: Tipos de Operação--> 
+            
+            <div id="tipos" class="tab-content">
+                <label for="tipo_operacao">Tipo de Operação:</label>
+                    <input id="input" id="tipo_operacao" name="tipoOp" value="<?php echo $funcao;?>" disabled >
+                
+                <label for="">Tipo de ação ou apoio:</label>
+                <select id="input" id="" name="acaoOuApoio" class="" required>
+                    <option value="<?php print $rowTipos->acaoOuApoio;?>"><?php print $rowTipos->acaoOuApoio;?></option>
+                    <option value="Logística para Operações de Garantia da Soberania">Logística para Operações de Garantia da Soberania</option>
+                    <option value="Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)">Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)</option>
+                    <option value="Logística de Apoio a Garantia da Votação e Apuração (GVA)">Logística de Apoio a Garantia da Votação e Apuração (GVA)</option>
+                    <option value="Logística de Apoio a Defesa Civil">Logística de Apoio a Defesa Civil</option>
+                    <option value="Logística de Apoio as Ações Aubsidiárias">Logística de Apoio as Ações Aubsidiárias</option>
+                    <option value="Logística de Apoio a Operações Internacionais">Logística de Apoio a Operações Internacionais</option>
+                </select>
+                <hr><br>
+                <label for="">Ação ou Apoio Desempenhado:</label>
+                
+                <label for="">Transporte:</label>
+                <select id="input" id="" name="transporte" class="" >
+                    <option value="<?php print @$rowTipos->transporte;?>"><?php print @$rowTipos->transporte;?></option>
+                    <option value="Classe I">Classe I</option>
+                    <option value="Classe II">Classe II</option>
+                    <option value="Classe III">Classe III</option>
+                    <option value="Classe VI">Classe IV</option>
+                    <option value="Classe V">Classe V</option>
+                    <option value="Classe VI">Classe VI</option>
+                    <option value="Classe VII">Classe VII</option>
+                    <option value="Classe VIII">Classe VIII</option>
+                    <option value="Classe IX">Classe IX</option>
+                    <option value="Classe X">Classe X</option>
+                    <option value="Mais de uma Classe">Mais de uma Classe</option>
+                </select>
+
+                <label for="">Descreva ação ou apoio:</label>
+                <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte" > 
+                <hr><br>
+                <label for="">Manunteção:</label>
+                <select id="input" id="" name="manuntecao"  class="">
+                <option value="<?php print @$rowTipos->desManuntencao;?>"><?php print @$rowTipos->desManuntencao;?></option>
+                    <option value="Classe I">Classe I</option>
+                    <option value="Classe II">Classe II</option>
+                    <option value="Classe III">Classe III</option>
+                    <option value="Classe VI">Classe IV</option>
+                    <option value="Classe V">Classe V</option>
+                    <option value="Classe VI">Classe VI</option>
+                    <option value="Classe VII">Classe VII</option>
+                    <option value="Classe VIII">Classe VIII</option>
+                    <option value="Classe IX">Classe IX</option>
+                    <option value="Classe X">Classe X</option>
+                    <option value="Mais de uma Classe">Mais de uma Classe</option>
+                </select>
+                <label for="">Descreva ação ou apoio:</label>
+                <input id="input" type="text" name="desManuntencao" id="" value="<?php print @$rowTipos->desManuntencao;?>" placeholder="Manuntenção" > 
+                <hr><br>
+                <label for="">Suprimento:</label>
+                <select id="input" id="" name="suprimento"  class="">
+                <option value="<?php print @$rowTipos->suprimento;?>"><?php print @$rowTipos->desSuprimento;?></option>
+                    <option value="Classe I">Classe I</option>
+                    <option value="Classe II">Classe II</option>
+                    <option value="Classe III">Classe III</option>
+                    <option value="Classe VI">Classe IV</option>
+                    <option value="Classe V">Classe V</option>
+                    <option value="Classe VI">Classe VI</option>
+                    <option value="Classe VII">Classe VII</option>
+                    <option value="Classe VIII">Classe VIII</option>
+                    <option value="Classe IX">Classe IX</option>
+                    <option value="Classe X">Classe X</option>
+                    <option value="Mais de uma Classe">Mais de uma Classe</option>
+                </select>
+                <label for="">Descreva ação ou apoio:</label>
+                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$rowTipos->desSuprimentos;?>" placeholder="Não foi preenchido" > 
+                <hr><br>
+                <label for="">Aviação:</label>
+                <select id="input" id="" name="aviacao"  placeholder="Não foi preenchido"class="">
+                <option value="<?php print @$rowTipos->desAviacao;?>"><?php print @$rowTipos->desAviacao;?></option>
+                    <option value="Classe I">Classe I</option>
+                    <option value="Classe II">Classe II</option>
+                    <option value="Classe III">Classe III</option>
+                    <option value="Classe VI">Classe IV</option>
+                    <option value="Classe V">Classe V</option>
+                    <option value="Classe VI">Classe VI</option>
+                    <option value="Classe VII">Classe VII</option>
+                    <option value="Classe VIII">Classe VIII</option>
+                    <option value="Classe IX">Classe IX</option>
+                    <option value="Classe X">Classe X</option>
+                    <option value="Mais de uma Classe">Mais de uma Classe</option>
+                </select>
+                <label for="">Descreva ação ou apoio:</label>
+                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$rowTipos->desAviacao;?>" placeholder="Aviação" > 
+            
+            </div>
+
+            <!-- Seção 4: Recursos Provisionados -->
+            <div id="recursos" class="tab-content">
+
+            <label for="recebidos">Recebidos (R$):</label>
+            <input id="input" type="number" id="recebidos" value="<?php print $rowRecursos->recebidos?>" name="recebidos" required placeholder="R$ 0,00">
+            
+            <label for="descentralizados">Descentralizados (R$):</label>
+            <input id="input" type="number" id="descentralizados" value="<?php print $rowRecursos->descentralizados?>" name="descentralizados" required placeholder="R$ 0,00">
+            
+            <label for="liquidados">Liquidados (R$):</label>
+            <input id="input" type="number" id="liquidados" value="<?php print $rowRecursos->liquidados?>" name="liquidados" required placeholder="R$ 0,00">
+            
+            <label for="devolvolvidos">Devolvolvidos (R$):</label>
+            <input id="input" type="number" id="devolvolvidos" value="<?php print $rowRecursos->devolvidos?>" name="devolvidos" required placeholder="R$ 0,00">
+
+            </div>
+
+            <!-- Seção 5: Outras Informações -->
+
+            <div id="outras" class="tab-content ">
+                <label for="informacoes"> Síntese da Operação:</label>
+                <textarea name="sinseseOp" id="input" id="informacoes" required rows="2"><?php print @$sinteseOp?></textarea>
+                <hr>
+                <label for="informacoes"> Outras Informações:</label>
+                <textarea name="outrasInfos" id="informacoes" value="<?php print @$rowInfo->outrasInfos?>" rows="4"><?php print @$outrasInfos?></textarea>
+            </div>
             <!-- Botão de Envio -->
             <input id="input" type="submit" name="submit" class="submit-btn"></input>
+
+            </div>
+
+            
 
         </form>
     </div>

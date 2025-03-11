@@ -234,7 +234,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="index.php?p=todasOp">
+                                            <a href="todasOp">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Todas Operações</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -456,7 +456,8 @@
                                                             ?>    
                                                                 <td class="btn-sm">
                                                                     <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-success btn-sm'> Editar </button>
-                                                                    <button onclick="Excluir(<?php echo $dados['opid']; ?>)" class='btn btn-danger btn-sm'> Excluir </button>
+                                                                    <button onclick="if(confirm('Tem certeza que deseja excluir?')) { Excluir(<?php echo $dados['opid']; ?>); } return false;"
+                                                                    class='btn btn-danger btn-sm'> Excluir </button>
                                                                     <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-primary btn-sm'>Expandir</button>
                                                                 </td>
                                                             <?php
@@ -564,7 +565,7 @@ var nav = $('.fixed-button');
         window.open('pages/editar_Op.php?id=' + id, '_blank');
       }
       function Excluir(id) {
-        window.open('/app/insercao/update.php?id=' + id, '_blank');
+        window.open('acoes/acao.php?acao=excluir&id=' + id);
       }
 
     </script>
