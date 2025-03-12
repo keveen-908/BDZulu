@@ -161,7 +161,7 @@
 
   <script>
       function Expandir(id) {
-        window.open('/app/pesquisa/completo.php?id=' + id, '_blank');
+        window.open('pages/relatorio.php?id=' + id, '_blank');
       }
       function Edicao(id) {
         window.open('pages/editar_Op.php?id=' + id, '_blank');

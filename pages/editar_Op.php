@@ -23,8 +23,8 @@
     $res = $mysqli->query($sql);
     $rowInfo = $res->fetch_object();
 
-    $sinteseOp = ($rowInfo->sinteseOp);
-    $outrasInfos = ($rowInfo->outrasInfos);
+    print_r($rowInfo['sintaseOp']);
+    print_r($rowInfo['sintaseOp']);
 
     
 
@@ -362,7 +362,7 @@
 
             <div id="outras" class="tab-content ">
                 <label for="informacoes"> Síntese da Operação:</label>
-                <textarea name="sintese" id="input" id="informacoes" required rows="2"><?php print @$sinteseOp?></textarea>
+                <textarea name="sintase" id="input" id="informacoes" required rows="2"><?php print $sintaseOp?></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
                 <textarea name="outrasInfos" id="informacoes" value="<?php print @$rowInfo->outrasInfos?>" rows="4"><?php print @$outrasInfos?></textarea>

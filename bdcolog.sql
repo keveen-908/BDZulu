@@ -68,7 +68,7 @@ create table recursos (
     
 create table infos (
 	iid  int PRIMARY KEY  auto_increment,
-	sintaseOp varchar(255)
+	sintaseOp varchar(255),
 	outrasInfos varchar(255)
 );
     

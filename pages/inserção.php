@@ -253,7 +253,7 @@
                 <input id="input" type="text" name="desTransporte"  id="" placeholder="Transporte" > 
 
                 <label for="">Manunteção:</label>
-                <select id="input" id="" name="manuntecao"  class="">
+                <select id="input" id="" name="manutencao"  class="">
                 <option value="">Selecione a Classe</option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
@@ -268,7 +268,7 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManuntencao" id=""  placeholder="Manuntenção" > 
+                <input id="input" type="text" name="desManutencao" id=""  placeholder="Manuntenção" > 
 
                 <label for="">Suprimento:</label>
                 <select id="input" id="" name="suprimento"  class="">
@@ -328,7 +328,7 @@
             <!-- Seção 5: Outras Informações -->
             <div id="outras" class="tab-content">
                 <label for="op"> Síntese da Operação:</label>
-                <textarea name="sintese" id="op" id="informacoes" required rows="2"></textarea>
+                <textarea name="sintase" id="op" id="informacoes" required rows="2"></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
                 <textarea name="outrasInfos" id="informacoes" rows="4"></textarea>

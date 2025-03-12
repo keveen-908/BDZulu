@@ -37,8 +37,9 @@
             $liquidados = $_POST['liquidados'];
             $devolvidos = $_POST['devolvidos'];
             
+            
             $outrasInfos = $_POST['outrasInfos'];
-            $sinteseOp = $_POST['sintese'];
+            $sintaseOp = $_POST['sintase'];
 
 
             $sql = "UPDATE operacao SET 
@@ -94,7 +95,7 @@
 
             $sql5 = "UPDATE infos SET 
             outrasInfos = '{$outrasInfos}',
-            sinteseOp = '{$sinteseOp}'
+            sintaseOp = '{$sintaseOp}'
             WHERE iid = {$_REQUEST['id']}";
 
             $resInf = $mysqli->query($sql5) or die($mysqli->error);
@@ -121,12 +122,27 @@
         
         case 'excluir':
 
-            $id= $_REQUEST['id'];
+           $id= $_REQUEST['id'];
            $sql = "DELETE FROM operacao WHERE opid = {$_REQUEST['id']}";
+           $resOp = $mysqli->query($sql) or die($mysqli->error);
+           
+           $sql2 = "DELETE FROM logins WHERE eid = {$_REQUEST['id']}";
+           $resLog = $mysqli->query($sql2) or die($mysqli->error);
 
-           $res = $mysqli->query($sql) or die($mysqli->error);
+           $sql2 = "DELETE FROM efetivo WHERE rid = {$_REQUEST['id']}";
+           $resEf = $mysqli->query($sql2) or die($mysqli->error);
+
+           $sql2 = "DELETE FROM recursos WHERE lid = {$_REQUEST['id']}";
+           $resRec = $mysqli->query($sql2) or die($mysqli->error);
+
+           $sql2 = "DELETE FROM tipoop WHERE tid = {$_REQUEST['id']}";
+           $resTipoOp = $mysqli->query($sql2) or die($mysqli->error);
+
+           $sql2 = "DELETE FROM anexo WHERE aid = {$_REQUEST['id']}";
+           $resAnexo = $mysqli->query($sql2) or die($mysqli->error);
+
+           if ($resOp === TRUE && $resLog === TRUE && $resEf === TRUE && $resRec === TRUE && $resTipoOp === TRUE && $resAnexo === TRUE) {
             
-           if ($res === TRUE) {
             print "<script>alert('Excluído com sucesso!');</script>";
             print "<script>location.href = '../index.php';</script>";
         } else {
