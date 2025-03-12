@@ -46,7 +46,7 @@
   <form action="/acoes/permissao.php" method="post">
 
     <label for="operacao" class="block mb-2 text-sm font-medium text-gray-900 ">Insira o ID:</label>
-    <input type="text" name="uid" value="" placeholder="Insira o ID" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <input type="text" name="uid" value="" placeholder="Insira o ID" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/6 p-2  ">
     <br>
     <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">Cargos:</label>
     <input type="submit" name="administrador" value="Administrador" class="w-1/7 text-white bg-red-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"/>
@@ -70,20 +70,8 @@
         <div class="card">
             <div class="card-block table-border-style">
                 <div class="table-responsive">
-                    
-                <form action="">
-                    <input class="border-2 rounded-lg border-slate-800" name="busca" value="<?php if(isset($_GET['busca'])) echo $_GET['busca']; ?>" placeholder="Digite os termos de pesquisa" type="text">
-                    <button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 
-                        focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg 
-                        dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 " type="submit">
-                        Pesquisar
-                    </button>
-                </form> <br>
                 
-                <form id="form-pesquisa" method="POST">
-                  <input type="text" id="buscar" name="buscar" placeholder="Pesquisar...">
-                  <button type="submit">Buscar</button>
-                </form>
+                <input type="text" class="form-control" id="input-busca"  placeholder="Pesquisar Operação" >
 
                 <ul id="resultados"></ul>
 
@@ -117,7 +105,7 @@
                             <th>FUNÇÃO</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabela-operacoes">
                         <?php
                         $sql_code = "SELECT * FROM usuarios";
                         $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
@@ -171,5 +159,26 @@
       </div>
     </div>
   </div>
+
+  <!--FAZ BUSCA NAS PESQUISAS -->
+  <script>
+      const inputBusca = document.getElementById('input-busca');
+      const tabelaOperacoes = document.getElementById('tabela-operacoes');
+
+      inputBusca.addEventListener('keyup', () => {
+          let valorBusca = inputBusca.value.toLowerCase();
+          let linhas = tabelaOperacoes.getElementsByTagName('tr');
+
+          for (let linha of linhas) {
+              let conteudoLinha = linha.innerText.toLowerCase();
+
+              if (conteudoLinha.includes(valorBusca)) {
+                  linha.style.display = ''; // mostra
+              } else {
+                  linha.style.display = 'none'; // esconde
+              }
+          }
+      });
+  </script>
 </body>
 </html>  

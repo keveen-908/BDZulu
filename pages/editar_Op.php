@@ -28,12 +28,6 @@
 
     
 
-    
-    
-    
-
-    
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -368,7 +362,7 @@
 
             <div id="outras" class="tab-content ">
                 <label for="informacoes"> Síntese da Operação:</label>
-                <textarea name="sinseseOp" id="input" id="informacoes" required rows="2"><?php print @$sinteseOp?></textarea>
+                <textarea name="sintese" id="input" id="informacoes" required rows="2"><?php print @$sinteseOp?></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
                 <textarea name="outrasInfos" id="informacoes" value="<?php print @$rowInfo->outrasInfos?>" rows="4"><?php print @$outrasInfos?></textarea>

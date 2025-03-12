@@ -144,7 +144,7 @@ include("acoes/config.php");
                                         </a>
                                     </li>                                                        
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="acoes/logout.php">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>

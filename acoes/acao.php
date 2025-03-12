@@ -38,7 +38,7 @@
             $devolvidos = $_POST['devolvidos'];
             
             $outrasInfos = $_POST['outrasInfos'];
-            @$sinteseOp = @$_POST['sinteseOp'];
+            $sinteseOp = $_POST['sintese'];
 
 
             $sql = "UPDATE operacao SET 
@@ -100,11 +100,21 @@
             $resInf = $mysqli->query($sql5) or die($mysqli->error);
 
             if($resOp === TRUE && $resEf === TRUE && $resTpOp === TRUE && $resRecur === TRUE && $resInf === TRUE){
-                print "<script>alert('Operação atualizada com sucesso!');</script>";
-                print "<script>location.href = '../todasOp.php';</script>";
+                echo "
+                <script>
+                alert('Operação atualizada com sucesso!');
+                window.opener.location.reload(); // Atualiza a tela principal (index)
+                window.close(); // Fecha a aba de edição
+                </script>
+                ";
             } else {
-                print "<script>alert('Não foi possível editar!');</script>";
-                print "<script>location.href = 'todasOp.php';</script>";
+                echo "
+                <script>
+                alert('Não foi possível editar!');
+                window.opener.location.reload(); // Atualiza a tela principal (index)
+                window.close(); // Fecha a aba de edição
+                </script>
+                ";
             }
             
             break;
@@ -118,13 +128,18 @@
             
            if ($res === TRUE) {
             print "<script>alert('Excluído com sucesso!');</script>";
-            print "<script>location.href = '../todasOp.php';</script>";
+            print "<script>location.href = '../index.php';</script>";
         } else {
             print "<script>alert('Não foi possível Excluir!');</script>";
-            print "<script>location.href = 'todasOp.php';</script>";
+            print "<script>location.href = 'index.php';</script>";
         }
             break;
           
     }
-
+    
 ?>
+<script>
+    function fecharGuia() {
+    document.getElementById('guia-usuario').style.display = 'none';
+    }
+</script>

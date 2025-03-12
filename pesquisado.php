@@ -12,12 +12,32 @@ include("acoes/config.php");
     <title>BD Op Log ZULU </title>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.1/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         .Usuario{
             pointer-events: none;
             cursor: default;
             color: #ccc;
         } 
+        td, th {
+        word-wrap: break-word; /* Permite que o texto quebre a linha automaticamente */
+        overflow-wrap: break-word; /* Garante a quebra de palavras longas */
+        max-width: 200px; /* Ajuste a largura máxima conforme necessário */
+        white-space: normal; /* Permite a quebra de linha do conteúdo */
+        }
+        .col-pequena {
+        width: 80px;
+        white-space: nowrap; /* Impede quebra de linha */
+        overflow: hidden;    /* Esconde conteúdo que passar do tamanho */
+        text-overflow: ellipsis; /* Coloca "..." no fim se for grande */
+        }
+        .col-limitada {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        }
+
     
     </style>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
@@ -185,7 +205,7 @@ include("acoes/config.php");
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="todasOp">
+                                            <a href="pesquisado.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Todas Operações</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -520,17 +540,16 @@ var nav = $('.fixed-button');
   <table class="table table-hover table-bordered" >
       <thead>
           <tr>
-          <th >Operação</th>
-          <th >Missão</th>
-          <th >Estado</th>
-          <th >Comando Militar de Área</th>
-          <th >Região Militar</th>
-          <th >Comando da Operação</th>
-          <th >Comando Apoiado</th>
-          <th >Inicio da Operação</th>
-          <th >Fim da Operação</th> 
-          <th >Açoes</th>
-          
+          <th style="width: 100px" >Operação</th>
+            <th style="width: 120px">Missão</th>
+            <th style="width: 100px">Estado</th>
+            <th style="width: 200px">Comando Militar de Área</th>
+            <th style="width: 120px">Região Militar</th>
+            <th style="width: 150px">Comando da Operação</th>
+            <th style="width: 120px">Comando Apoiado</th>
+            <th style="width: 100px">Inicio da Operação</th>
+            <th style="width: 100px">Fim da Operação</th> 
+            <th >Açoes</th>
           </tr>
       </thead>
       <tbody id="tabela-operacoes">
@@ -577,21 +596,26 @@ var nav = $('.fixed-button');
                             $missao = substr($missao, 0, 10)."...";
                         }
                         echo "<tr>";
-                        echo "<td>".$dados['operacao']."</td>";
-                        echo "<td>".$missao."</td>";
-                        echo "<td>".$dados['estado']."</td>";
-                        echo "<td>".$dados['cma']."</td>";
-                        echo "<td>".$dados['rm']."</td>";
-                        echo "<td>".$dados['comandoOp']."</td>";
-                        echo "<td>".$dados['comandoApoio']."</td>";
-                        echo "<td>".date_format(date_create_from_format('Y-m-d', $dados["inicioOp"]), 'd/m/Y')."<td>"; 
-                        echo date_format(date_create_from_format('Y-m-d', $dados["fimOp"]), 'd/m/Y');
+                        echo "<td class='col-limitada'>".$dados['operacao']."</td>";
+                        echo "<td class='col-limitada'>".$missao."</td>";
+                        echo "<td class='col-limitada'>".$dados['estado']."</td>";
+                        echo "<td class='col-limitada'>".$dados['cma']."</td>";
+                        echo "<td class='col-limitada'>".$dados['rm']."</td>";
+                        echo "<td class='col-limitada'>".$dados['comandoOp']."</td>";
+                        echo "<td class='col-limitada'>".$dados['comandoApoio']."</td>";
+                        echo "<td class='col-limitada'>".date_format(date_create_from_format('Y-m-d', $dados["inicioOp"]), 'd/m/Y')."</td>"; 
+                        echo "<td class='col-limitada'>".date_format(date_create_from_format('Y-m-d', $dados["fimOp"]), 'd/m/Y')."</td>";
                     ?>    
-                        <td class="btn-sm">
-                            <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-success btn-sm'> Editar </button>
-                            <button onclick="if(confirm('Tem certeza que deseja excluir?')) { Excluir(<?php echo $dados['opid']; ?>); } return false;"
-                            class='btn btn-danger btn-sm'> Excluir </button>
-                            <button onclick="Edicao(<?php echo $dados['opid']; ?>)" class='btn btn-primary btn-sm'>Expandir</button>
+                        <td class="btn-sm text-center">
+                            <a href="#" onclick="Edicao(<?php echo $dados['opid']; ?>)" class='text-success mx-3 ' title="Editar">
+                                <i class="bi bi-pencil-square fs-12"></i>
+                            </a>
+                            <a href="#" onclick="if(confirm('Tem certeza que deseja excluir?')) { Excluir(<?php echo $dados['opid']; ?>); } return false;" class='text-danger mx-3' title="Excluir">
+                                <i class="bi bi-trash fs-12"></i>
+                            </a>
+                            <a href="#" onclick="Expandir(<?php echo $dados['opid']; ?>)" class='text-primary mx-3' title="Expandir">
+                                <i class="bi bi-arrows-fullscreen fs-12"></i>
+                            </a>
                         </td>
                     <?php
                     }
@@ -671,12 +695,63 @@ var nav = $('.fixed-button');
           <div class="card widget-card-9 table-bordered">
           <?php
           }else {
-            echo "Nenhum resultado encontrado.";
+          ?>
+           <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+
+                    <!-- Main-body start -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- Page-header start -->
+                            <div class="page-header card">
+                                <div class="row align-items-end">
+                                    <div class="col-lg-8">
+                                        <div class="page-header-title">
+                                            
+                                            <i class="ti-close bg-c-pink"></i>
+                                            <div class="d-inline">
+                                                <h4>Nenhuma Operação encontrada!</h4>
+                                                <span>Não foi encontrada nenhuma pesquisa com os parametros pesquisados.</span>
+                                                <a href="pesquisaOp.php">Clique aqui pra efetuar outra pesquisa. </a>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
+                            <!-- Page-header end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+          <?php 
           }
           ?>
 </div>
 </div>
           <script src="/src/pdf.js"></script>
+        
+        <!--FAZ BUSCA NAS PESQUISAS -->
+          <script>
+            const inputBusca = document.getElementById('input-busca');
+            const tabelaOperacoes = document.getElementById('tabela-operacoes');
+
+            inputBusca.addEventListener('keyup', () => {
+                let valorBusca = inputBusca.value.toLowerCase();
+                let linhas = tabelaOperacoes.getElementsByTagName('tr');
+
+                for (let linha of linhas) {
+                    let conteudoLinha = linha.innerText.toLowerCase();
+
+                    if (conteudoLinha.includes(valorBusca)) {
+                        linha.style.display = ''; // mostra
+                    } else {
+                        linha.style.display = 'none'; // esconde
+                    }
+                }
+            });
+         </script>
+
 
           
           <!-- script da pesquisa pelo id da query --> 

@@ -13,6 +13,21 @@ include("acoes/config.php");
             cursor: default;
             color: #ccc;
         } 
+       
+         /* Área principal onde o form vai ficar */
+       
+
+        .form-box {
+        background-color: white;
+        padding: 20px 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 350%;
+        max-width: 1400px; /* Limita o tamanho máximo */
+        box-sizing: border-box;
+        }
+       
+    
     </style>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -176,7 +191,7 @@ include("acoes/config.php");
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="index.php?p=todasOp">
+                                            <a href="pesquisado.php">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Todas Operações</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -246,10 +261,15 @@ include("acoes/config.php");
                             </ul>
                         </div>
                     </nav>
-                    <!-- CONTEÚDO -->
-                    <div class="pcoded-content">
+              
+                    
 
-                    <div>
+            <!-- CONTEÚDO -->
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+
+                    <!-- Main-body start -->
+                    <div class="main-body">
                         <div class="page-wrapper">
                             <!-- Page-header start -->
                             <div class="page-header card">
@@ -268,10 +288,12 @@ include("acoes/config.php");
                             <!-- Page-header end -->
                         </div>
                     </div>
+                        
+
                     <!--formulario de pesquisa-->
                     <div class="card-block">
-                        <h4 class="sub-title">Informações</h4>
-                        <form method="POST" action="pesquisado.php";>     
+                        <form method="POST" class="form-box" action="pesquisado.php";>     
+                            <h4 class="sub-title">Informações</h4>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Nome:</label>
                                 <div class="col-sm-10">
@@ -279,6 +301,7 @@ include("acoes/config.php");
                                     placeholder="Nome da operação">
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Estado (UF):</label>
                                 <div class="col-sm-10">
@@ -315,6 +338,7 @@ include("acoes/config.php");
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Missão:</label>
                                 <div class="col-sm-10">
@@ -402,18 +426,12 @@ include("acoes/config.php");
                             <button type="submit" class="btn btn-success btn-square btn-block">Pesquisar</button>                           
                         </form>
                     </div>
-
-
-
-                        </script>
-                        </table>
-                    </div>
-
-                    </div>
                 </div>
             </div>
         </div>
-      
+    </div>
+          
+            
 <!-- Required Jquery -->
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>

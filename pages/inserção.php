@@ -327,8 +327,8 @@
 
             <!-- Seção 5: Outras Informações -->
             <div id="outras" class="tab-content">
-                <label for="informacoes"> Síntese da Operação:</label>
-                <textarea name="outrasInfos" id="input" id="informacoes" required rows="2"></textarea>
+                <label for="op"> Síntese da Operação:</label>
+                <textarea name="sintese" id="op" id="informacoes" required rows="2"></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
                 <textarea name="outrasInfos" id="informacoes" rows="4"></textarea>
@@ -337,19 +337,17 @@
 
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
-                <label for="anexo">Relatório Final:</label>
-                <input id="input" type="file" name="relatorioFinal" id="anexo">
-                
-                <label for="anexo">Relatório do Comando Logístico:</label>
-                <input id="input" type="file" name="relatorioComando" id="anexo">
-                
-                <label for="anexo">Anexar fotos:</label>
-                <input id="input" type="file" name="fotos" id="anexo">
-                
-                <label for="anexo">Anexar Documento:</label>
-                <input id="input" type="file" name="outrasDocumentos" id="anexo">
+                <label for="relatorioFinal">Relatório Final:</label>
+                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal">
 
+                <label for="relatorioComando">Relatório do Comando Logístico:</label>
+                <input class="input" type="file" name="relatorioComando" id="relatorioComando">
 
+                <label for="fotos">Anexar fotos:</label>
+                <input class="input" type="file" name="fotos" id="fotos">
+
+                <label for="outrasDocumentos">Anexar Documento:</label>
+                <input class="input" type="file" name="outrasDocumentos" id="outrasDocumentos">
 
             </div>
 

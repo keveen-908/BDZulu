@@ -138,6 +138,7 @@ if ($devolvidos == null){
 //outras infos
 
 $outrasInfos = $_POST['outrasInfos'];
+$sinteseOp = $_POST['sintese'];
 
 // anexos 
 
@@ -174,7 +175,7 @@ if ($submit) {
 
   /* insere os dados de outras informacoes */
 
-  $sql = "INSERT INTO infos (outrasInfos) VALUES ('$outrasInfos')";
+  $sql = "INSERT INTO infos (outrasInfos,sinteseOp) VALUES ('$outrasInfos', '$sinteseOp')";
 
   $mysqli->query($sql);
 
