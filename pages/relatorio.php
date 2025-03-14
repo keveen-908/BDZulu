@@ -194,10 +194,11 @@
         <!-- Seção 6 -->
         <div class="card p-4 rounded-xl">
             <h2 class="text-2xl font-semibold mb-3">Anexos</h2>
-            <p><strong>Relatório Final:</strong> <?= $relatorioFinal ? 'Anexo Enviado' : 'Não enviado'; ?></p>
-            <p><strong>Relatório do Comando Logístico:</strong> <?= $relatorioComando ? 'Anexo Enviado' : 'Não enviado'; ?></p>
-            <p><strong>Fotos:</strong> <?= $fotos ? 'Anexadas' : 'Não anexadas'; ?></p>
-            <p><strong>Outros Documentos:</strong> <?= $outrasDocumentos ? 'Anexados' : 'Não anexados'; ?></p>
+            <p><strong>Relatório Final:</strong> <a href="../../uploads/<?php echo $relatorioFinal ?>" target="_blank"><?php echo $relatorioFinal ?></a></p>
+            <p><strong>Relatório do Comando Logístico:</strong> <a href="../../uploads/<?php echo $relatorioComando ?>" target="_blank"><?php echo $relatorioComando ?></a></p>
+            <p><strong>Fotos:</strong> <a href="../../uploads/<?php echo $fotos ?>" target="_blank"><?php echo $fotos ?></a></p>
+            <p><strong>Outros Documentos:</strong> <a href="../../uploads/<?php echo $outrasDocumentos ?>" target="_blank"><?php echo $outrasDocumentos ?></a></p>
+            <img src="../../uploads/<?php echo $fotos ?>" alt="" srcset="">
         </div>
 
     </div>
