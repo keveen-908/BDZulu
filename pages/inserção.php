@@ -8,10 +8,16 @@ $mysqli->begin_transaction();
 try {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-      $relatorioFinal = @$_FILES["relatorioFinal"];
-      $relatorioComando = @$_FILES["relatorioComando"];
-      $fotos = @$_FILES["fotos"];
-      $outrasDocumentos = @$_FILES["outrasDocumentos"];
+      $relatorioFinal = $_FILES["relatorioFinal"];
+      $relatorioComando = $_FILES["relatorioComando"];
+      $fotos = $_FILES["fotos"];
+      $outrasDocumentos = $_FILES["outrasDocumentos"];
+
+      $relatorioFinalName = null;
+      $relatorioComandoName = null;
+      $fotosName = null;
+      $outrasDocumentosName = null;
+
     
       $dirUploads = "./uploads";
     
@@ -20,8 +26,6 @@ try {
       }
       if (!empty($_FILES['relatorioFinal']['name'][0])) {
         if($_FILES['relatorioFinal']['size'] < $tamanhoMaximo){
-          echo "O tamanho do arquivo do Relatorio final excedeu o limite de 5MB";
-        }else{
           if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
             echo "Upload realizado com sucesso!";
             $relatorioFinalName = $relatorioFinal["name"];
@@ -32,8 +36,6 @@ try {
       }
       if (!empty($_FILES['relatorioComando']['name'][0])) {
         if($_FILES['relatorioComando']['size'] < $tamanhoMaximo){
-          echo "O tamanho do arquivo do Relatorio do comando logistico excedeu o limite 5MB";
-        }else{
           if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
             echo "Upload realizado com sucesso!";
             $relatorioComandoName = $relatorioComando["name"];
@@ -45,8 +47,6 @@ try {
       }
       if (!empty($_FILES['fotos']['name'][0])) {
         if($_FILES['fotos']['size'] < $tamanhoMaximo){
-          echo "O tamanho do arquivo de fotos excedeu o limite 5MB";
-        }else{
           if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
             echo "Upload realizado com sucesso!";
             $fotosName = $fotos["name"];
@@ -57,8 +57,6 @@ try {
       }
       if (!empty($_FILES['outrasDocumentos']['name'][0])) {
         if($_FILES['outrasDocumentos']['size'] < $tamanhoMaximo){
-          echo "O tamanho do arquivo de outros documentos excedeu o limite 5MB";
-        }else{
           if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
             echo "Upload realizado com sucesso!";
             $outrasDocumentosName = $outrasDocumentos["name"];
@@ -204,7 +202,6 @@ try {
 
       $mysqli->commit(); // Confirma as inserções
 
-      header("Location: ../pesquisaOp");
 
     }
     }
@@ -550,26 +547,26 @@ $mysqli->close();
             <!-- Seção 5: Outras Informações -->
             <div id="outras" class="tab-content">
                 <label for="op"> Síntese da Operação:</label>
-                <textarea name="sintase" id="op" id="informacoes" required rows="2"></textarea>
+                <textarea name="sintase" id="input" required rows="2"></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
-                <textarea name="outrasInfos" id="informacoes" rows="4"></textarea>
+                <textarea name="outrasInfos" id="input" rows="4"></textarea>
             </div>
             
 
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
                 <label for="relatorioFinal">Relatório Final:</label>
-                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal">
+                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" onchange="validarTamanhoArquivo('relatorioFinal')">
 
                 <label for="relatorioComando">Relatório do Comando Logístico:</label>
-                <input class="input" type="file" name="relatorioComando" id="relatorioComando">
+                <input class="input" type="file" name="relatorioComando" id="relatorioComando" onchange="validarTamanhoArquivo('relatorioComando')">
 
                 <label for="fotos">Anexar fotos:</label>
-                <input class="input" type="file" name="fotos" id="fotos">
+                <input class="input" type="file" name="fotos" id="fotos" onchange="validarTamanhoArquivo('fotos')">
 
                 <label for="outrasDocumentos">Anexar Documento:</label>
-                <input class="input" type="file" name="outrasDocumentos" id="outrasDocumentos">
+                <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" onchange="validarTamanhoArquivo('outrosDocs')">
 
             </div>
 
@@ -654,6 +651,24 @@ $mysqli->close();
                 customValidation(event)
             })
             field.addEventListener("blur", customValidation)
+        }
+
+        function validarTamanhoArquivo(seletorCampo)
+        {
+        // Receber o valor do campo
+        var imagem = document.getElementById(seletorCampo);
+        //console.log(imagem.files[0].size);
+
+        // Tamanho máximo do arquivo 2mb
+        if(imagem.files[0].size > (1024 * 1024 * 2)){
+
+            // Apresentar a mensagem de erro
+            alert("Tamanho máximo permitido do arquivo é 2mb.");
+
+            // Limpar o campo arquivo
+            imagem.value = '';
+            //(imagem ? imagem.value = '' : null)
+        }
         }
     </script>
 </body>
