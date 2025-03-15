@@ -13,7 +13,7 @@ create table usuarios(
 );
 
 create table loglogin ( 
-    usuario varchar (255),
+    nome varchar (255),
     data datetime 
 );
 
