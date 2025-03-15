@@ -1,57 +1,72 @@
 <?php
 
+$tamanhoMaximo = 1024 * 1024 * 5;//5MB
+
 // Inicia a transação
 $mysqli->begin_transaction();
 
 try {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $relatorioFinal = $_FILES["relatorioFinal"];
-  $relatorioComando = $_FILES["relatorioComando"];
-  $fotos = $_FILES["fotos"];
-  $outrasDocumentos = $_FILES["outrasDocumentos"];
 
-  $dirUploads = "./uploads";
-
-  if (!is_dir($dirUploads)) {
-    mkdir($dirUploads);
-  }
-  if (empty($_FILES['relatorioFinal']['name'][0])) {
+      $relatorioFinal = @$_FILES["relatorioFinal"];
+      $relatorioComando = @$_FILES["relatorioComando"];
+      $fotos = @$_FILES["fotos"];
+      $outrasDocumentos = @$_FILES["outrasDocumentos"];
     
-    if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
-      echo "Upload realizado com sucesso!";
-      $relatorioFinalName = $relatorioFinal["name"];
-    } else {
-      throw new Exception("Não foi possível reaizar o upload.");
-    }
-  }
-  if (empty($_FILES['relatorioComando']['name'][0])) {
+      $dirUploads = "./uploads";
     
-    if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
-      echo "Upload realizado com sucesso!";
-      $relatorioComandoName = $relatorioComando["name"];
-    } else {
-      throw new Exception("Não foi possível reaizar o upload.");
-  
-    }
-  }
-  if (empty($_FILES['fotos']['name'][0])) {
-    
-    if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
-      echo "Upload realizado com sucesso!";
-      $fotosName = $fotos["name"];
-    } else {
-      throw new Exception("Não foi possível reaizar o upload.");
-    }
-  }
-  if (empty($_FILES['outrasDocumentos']['name'][0])) {
-    
-    if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
-      echo "Upload realizado com sucesso!";
-      $outrasDocumentosName = $outrasDocumentos["name"];
-    } else {
-      throw new Exception("Não foi possível reaizar o upload.");
-    }
-  }
+      if (!is_dir($dirUploads)) {
+        mkdir($dirUploads);
+      }
+      if (!empty($_FILES['relatorioFinal']['name'][0])) {
+        if($_FILES['relatorioFinal']['size'] < $tamanhoMaximo){
+          echo "O tamanho do arquivo do Relatorio final excedeu o limite de 5MB";
+        }else{
+          if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
+            echo "Upload realizado com sucesso!";
+            $relatorioFinalName = $relatorioFinal["name"];
+          } else {
+            throw new Exception("Não foi possível reaizar o upload.");
+          }
+        }
+      }
+      if (!empty($_FILES['relatorioComando']['name'][0])) {
+        if($_FILES['relatorioComando']['size'] < $tamanhoMaximo){
+          echo "O tamanho do arquivo do Relatorio do comando logistico excedeu o limite 5MB";
+        }else{
+          if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
+            echo "Upload realizado com sucesso!";
+            $relatorioComandoName = $relatorioComando["name"];
+          } else {
+            throw new Exception("Não foi possível reaizar o upload.");
+        
+          }
+        }
+      }
+      if (!empty($_FILES['fotos']['name'][0])) {
+        if($_FILES['fotos']['size'] < $tamanhoMaximo){
+          echo "O tamanho do arquivo de fotos excedeu o limite 5MB";
+        }else{
+          if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
+            echo "Upload realizado com sucesso!";
+            $fotosName = $fotos["name"];
+          } else {
+            throw new Exception("Não foi possível reaizar o upload.");
+          }
+        }
+      }
+      if (!empty($_FILES['outrasDocumentos']['name'][0])) {
+        if($_FILES['outrasDocumentos']['size'] < $tamanhoMaximo){
+          echo "O tamanho do arquivo de outros documentos excedeu o limite 5MB";
+        }else{
+          if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
+            echo "Upload realizado com sucesso!";
+            $outrasDocumentosName = $outrasDocumentos["name"];
+          } else {
+            throw new Exception("Não foi possível reaizar o upload.");
+          }
+        }
+      }
 
 
     //operação
@@ -188,6 +203,8 @@ try {
       $mysqli->query($sql);
 
       $mysqli->commit(); // Confirma as inserções
+
+      header("Location: ../pesquisaOp");
 
     }
     }
