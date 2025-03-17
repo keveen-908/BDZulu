@@ -22,11 +22,19 @@
     $sql = "SELECT * FROM infos WHERE iid = " . $id;
     $res = $mysqli->query($sql);
     $rowInfo = $res->fetch_object();
-
-    print_r($rowInfo['sintaseOp']);
-    print_r($rowInfo['sintaseOp']);
-
     
+    $outrasinfos = $sintaseOp = $manutencao = $desManutencao = $desAviacao = $desSuprimentos = null;
+    
+    $sintaseOp = $rowInfo->sintaseOp;
+    $outrasinfos = $rowInfo->outrasInfos;
+    
+    $manutencao=$rowTipos->manutencao;
+    $desManutencao=$rowTipos->desManutencao;
+    $desAviacao=$rowTipos->desAviacao;
+    $desSuprimento=$rowTipos->desSuprimento;
+    
+
+    print_r($manutencao)
 
 ?>
 <!DOCTYPE html>
@@ -263,9 +271,9 @@
                     <option value="Logística de Apoio as Ações Aubsidiárias">Logística de Apoio as Ações Aubsidiárias</option>
                     <option value="Logística de Apoio a Operações Internacionais">Logística de Apoio a Operações Internacionais</option>
                 </select>
-                <hr><br>
-                <label for="">Ação ou Apoio Desempenhado:</label>
-                
+                <hr>
+                <label for="apoioDesempenhado">Ação ou Apoio Desempenhado:</label>
+                <br>
                 <label for="">Transporte:</label>
                 <select id="input" id="" name="transporte" class="" >
                     <option value="<?php print @$rowTipos->transporte;?>"><?php print @$rowTipos->transporte;?></option>
@@ -285,9 +293,9 @@
                 <label for="">Descreva ação ou apoio:</label>
                 <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte" > 
                 <hr><br>
-                <label for="">Manunteção:</label>
-                <select id="input" id="" name="manuntecao"  class="">
-                <option value="<?php print @$rowTipos->desManuntencao;?>"><?php print @$rowTipos->desManuntencao;?></option>
+                <label for="">Manutenção:</label>
+                <select id="input" id="" name="manutencao"  class="">
+                <option value="<?php print @$manutencao;?>"><?php print @$manutencao;?></option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
                     <option value="Classe III">Classe III</option>
@@ -301,11 +309,11 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManuntencao" id="" value="<?php print @$rowTipos->desManuntencao;?>" placeholder="Manuntenção" > 
+                <input id="input" type="text" name="desManutencao" id="" value="<?php print @$desManutencao;?>" placeholder="Manuntenção" > 
                 <hr><br>
                 <label for="">Suprimento:</label>
                 <select id="input" id="" name="suprimento"  class="">
-                <option value="<?php print @$rowTipos->suprimento;?>"><?php print @$rowTipos->desSuprimento;?></option>
+                <option value="<?php print @$rowTipos->suprimento;?>"><?php print @$rowTipos->suprimento;?></option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
                     <option value="Classe III">Classe III</option>
@@ -319,11 +327,11 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$rowTipos->desSuprimentos;?>" placeholder="Não foi preenchido" > 
+                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$desSuprimento;?>" placeholder="Não foi preenchido" > 
                 <hr><br>
                 <label for="">Aviação:</label>
                 <select id="input" id="" name="aviacao"  placeholder="Não foi preenchido"class="">
-                <option value="<?php print @$rowTipos->desAviacao;?>"><?php print @$rowTipos->desAviacao;?></option>
+                <option value="<?php print @$rowTipos->aviacao;?>"><?php print @$rowTipos->aviacao;?></option>
                     <option value="Classe I">Classe I</option>
                     <option value="Classe II">Classe II</option>
                     <option value="Classe III">Classe III</option>
@@ -337,7 +345,7 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$rowTipos->desAviacao;?>" placeholder="Aviação" > 
+                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$desAviacao;?>" placeholder="Aviação" > 
             
             </div>
 
@@ -365,8 +373,9 @@
                 <textarea name="sintase" id="input" id="informacoes" required rows="2"><?php print $sintaseOp?></textarea>
                 <hr>
                 <label for="informacoes"> Outras Informações:</label>
-                <textarea name="outrasInfos" id="informacoes" value="<?php print @$rowInfo->outrasInfos?>" rows="4"><?php print @$outrasInfos?></textarea>
+                <textarea name="outrasInfos" id="informacoes" rows="4"><?php print $outrasinfos?></textarea>
             </div>
+            
             <!-- Botão de Envio -->
             <input id="input" type="submit" name="submit" class="submit-btn"></input>
 

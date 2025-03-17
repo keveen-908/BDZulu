@@ -2,7 +2,10 @@
     include('../acoes/config.php');
     // Recebe o ID da operação pela URL (ex: relatorio.php?id=1)
     $id_operacao = isset($_GET['id']) ? intval($_GET['id']) : 0;
-    
+
+    $operacao = $estado = $missao = $cma = $rm = $comandoOp = $comandoApoiado = $inicioOp = $fimOp = 'Não informado';
+
+
     // Consulta Operação
     $sql = "SELECT * FROM operacao WHERE opid = $id_operacao";
     $resultOp = $mysqli->query($sql);
@@ -47,8 +50,8 @@
         @$acaoOuApoio = @$row['acaoOuApoio'];
         @$transporte = @$row['transporte'];
         @$desTransporte = @$row['desTransporte'];
-        @$manuntecao = @$row['manuntecao'];
-        @$desManuntencao = @$row['desManuntencao'];
+        @$manutencao = @$row['manutencao'];
+        @$desManutencao = @$row['desManutencao'];
         @$suprimento = @$row['suprimento'];
         @$desSuprimento = @$row['desSuprimento'];
         @$aviacao = @$row['aviacao'];
@@ -194,12 +197,43 @@
         <!-- Seção 6 -->
         <div class="card p-4 rounded-xl">
             <h2 class="text-2xl font-semibold mb-3">Anexos</h2>
-            <p><strong>Relatório Final:</strong> <a href="../../uploads/<?php echo $relatorioFinal ?>" target="_blank"><?php echo $relatorioFinal ?></a></p>
-            <p><strong>Relatório do Comando Logístico:</strong> <a href="../../uploads/<?php echo $relatorioComando ?>" target="_blank"><?php echo $relatorioComando ?></a></p>
-            <p><strong>Fotos:</strong> <a href="../../uploads/<?php echo $fotos ?>" target="_blank"><?php echo $fotos ?></a></p>
-            <p><strong>Outros Documentos:</strong> <a href="../../uploads/<?php echo $outrasDocumentos ?>" target="_blank"><?php echo $outrasDocumentos ?></a></p>
-            <img src="../../uploads/<?php echo $fotos ?>" alt="" srcset="">
+
+            <p><strong>Relatório Final:</strong> 
+                <a href="../../uploads/<?php echo $relatorioFinal ?>" target="_blank"><?php echo $relatorioFinal ?></a>
+            </p>
+
+            <p><strong>Relatório do Comando Logístico:</strong> 
+                <a href="../../uploads/<?php echo $relatorioComando ?>" target="_blank"><?php echo $relatorioComando ?></a>
+            </p>
+
+            <p><strong>Outros Documentos:</strong> 
+                <a href="../../uploads/<?php echo $fotos ?>" target="_blank"><?php echo $fotos ?></a>
+            </p>
+
+            <p><strong>Fotos:</strong> 
+                <a href="../../uploads/<?php echo $outrasDocumentos ?>" target="_blank"><?php echo $outrasDocumentos ?></a>
+            </p>
+
+            <!-- Galeria de imagens lado a lado -->
+            <?php
+                // Explodir as fotos em um array, separando por vírgula
+                $fotosArray = explode(',', $fotos); 
+            ?>
+
+            <div class="row mt-4">
+                <?php foreach ($fotosArray as $foto): ?>
+                    <?php if (!empty(trim($foto))): ?>
+                        <div class="col-md-3 col-6 mb-3"> <!-- 4 imagens por linha no desktop, 2 no mobile -->
+                            <img src="../../uploads/<?= trim($foto); ?>" 
+                                class="img-fluid rounded shadow-sm" 
+                                style="height: 150px; object-fit: cover; width: 75%;"
+                                alt="Foto da Operação">
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
+
 
     </div>
     <BR>

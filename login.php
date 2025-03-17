@@ -17,7 +17,7 @@
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
 
-            $insert="INSERT INTO loglogin (nome, data) VALUES ('$nomeUsuario', NOW())";
+            $insert="INSERT INTO loglogin (usuario, data) VALUES ('$nomeUsuario', NOW())";
             $mysqli->query($insert);
             
             header("Location: index.php");
