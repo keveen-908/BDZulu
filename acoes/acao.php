@@ -25,8 +25,8 @@
             $acao_apoio = $_POST['acaoOuApoio'];
             $transporte = $_POST['transporte'];
             $desTransporte = $_POST['desTransporte'];
-            $manuntecao = $_POST['manuntecao'];
-            $desManuntencao = $_POST['desManuntencao'];
+            $manuntecao = $_POST['manutencao'];
+            $desManuntencao = $_POST['desManutencao'];
             $suprimento = $_POST['suprimento'];
             $desSuprimento = $_POST['desSuprimento'];
             $aviacao = $_POST['aviacao'];
@@ -70,7 +70,7 @@
 
             $resEf = $mysqli->query($sql2) or die($mysqli->error);
 
-            $sql3 = "UPDATE tipoop SET 
+            $sql3 = "UPDATE tipoOp SET 
             acaoOuApoio = '{$acao_apoio}',
             transporte = '{$transporte}',  
             desTransporte = '{$desTransporte}',
@@ -122,37 +122,73 @@
         
         case 'excluir':
 
+           $mysqli->begin_transaction();
+
            $id= $_REQUEST['id'];
-           $sql = "DELETE FROM operacao WHERE opid = {$_REQUEST['id']}";
-           $resOp = $mysqli->query($sql) or die($mysqli->error);
-           
-           $sql2 = "DELETE FROM logins WHERE eid = {$_REQUEST['id']}";
-           $resLog = $mysqli->query($sql2) or die($mysqli->error);
+           try {
+                $sql = "DELETE FROM operacao WHERE opid = {$_REQUEST['id']}";
+                $resOp = $mysqli->query($sql);
+                if ($resOp === FALSE) {
+                    echo "Erro ao excluir da tabela 'operacao': " . $mysqli->error;
+                }
+                
+                $sql2 = "DELETE FROM logins WHERE lid = {$_REQUEST['id']}";
+                $resLog = $mysqli->query($sql2);
+                if ($resLog === FALSE) {
+                    echo "Erro ao excluir da tabela 'logins': " . $mysqli->error;
+                }
 
-           $sql2 = "DELETE FROM efetivo WHERE rid = {$_REQUEST['id']}";
-           $resEf = $mysqli->query($sql2) or die($mysqli->error);
+                $sql2 = "DELETE FROM efetivo WHERE eid = {$_REQUEST['id']}";
+                $resEf = $mysqli->query($sql2);
+                if ($resEf === FALSE) {
+                    echo "Erro ao excluir da tabela 'efetivo': " . $mysqli->error;
+                }
 
-           $sql2 = "DELETE FROM recursos WHERE lid = {$_REQUEST['id']}";
-           $resRec = $mysqli->query($sql2) or die($mysqli->error);
+                $sql2 = "DELETE FROM recursos WHERE rid = {$_REQUEST['id']}";
+                $resRec = $mysqli->query($sql2);
+                if ($resOp === FALSE) {
+                    echo "Erro ao excluir da tabela 'recursos': " . $mysqli->error;
+                }
 
-           $sql2 = "DELETE FROM tipoop WHERE tid = {$_REQUEST['id']}";
-           $resTipoOp = $mysqli->query($sql2) or die($mysqli->error);
+                $sql2 = "DELETE FROM tipoOp WHERE tid = {$_REQUEST['id']}";
+                $resTipoOp = $mysqli->query($sql2);
+                if ($resTipoOp === FALSE) {
+                    echo "Erro ao excluir da tabela 'tipoop': " . $mysqli->error;
+                }
 
-           $sql2 = "DELETE FROM anexo WHERE aid = {$_REQUEST['id']}";
-           $resAnexo = $mysqli->query($sql2) or die($mysqli->error);
+                $sql2 = "DELETE FROM anexos WHERE aid = {$_REQUEST['id']}";
+                $resAnexo = $mysqli->query($sql2);
+                if ($resAnexo === FALSE) {
+                    echo "Erro ao excluir da tabela 'anexo': " . $mysqli->error;
+                }
 
-           if ($resOp === TRUE && $resLog === TRUE && $resEf === TRUE && $resRec === TRUE && $resTipoOp === TRUE && $resAnexo === TRUE) {
+                
+                $sql2 = "DELETE FROM infos WHERE iid = {$_REQUEST['id']}";
+                $resInfo = $mysqli->query($sql2);
+                if ($resTipoOp === FALSE) {
+                    echo "Erro ao excluir da tabela 'infos': " . $mysqli->error;
+                }
+
+                    $mysqli->commit(); // Confirma as inserções
+                    echo "
+                    <script>
+                    alert('Operação atualizada com sucesso!');
+                    window.opener.location.reload(); // Atualiza a tela principal (index)
+                    window.close(); // Fecha a aba de edição
+                    </script>
+                    ";
             
-            print "<script>alert('Excluído com sucesso!');</script>";
-            print "<script>location.href = '../index.php';</script>";
-        } else {
-            print "<script>alert('Não foi possível Excluir!');</script>";
-            print "<script>location.href = 'index.php';</script>";
-        }
-            break;
-          
+                }catch (Exception $e) {
+                    $mysqli->rollback();
+                    // Exibe o erro detalhado
+                    echo "Erro ao excluir dados: " . $e->getMessage();
+                    print "<script>alert('Não foi possível Excluir!');</script>";
+                    print "<script>location.href = 'index.php';</script>";
+                }
+                  $mysqli->close();
+            break;        
     }
-    
+  
 ?>
 <script>
     function fecharGuia() {

@@ -144,7 +144,7 @@
                     <option value="">Selecione o Tipo de Usuário </option>
                     <option value="">Usuário</option>
                     <option value="Gerente">Gerente</option>
-                    <option value="Administrador">Admin</option>
+                    <option value="Admin">Admin</option>
                 </select>       
             </div>
 

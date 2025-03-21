@@ -512,19 +512,19 @@ var nav = $('.fixed-button');
                                         <div>
                                             
                                             <span class="f-right">
-                                                <i class="text-c-green ti-money m-r-10"></i>Provisão Recebida: <strong> <?php echo number_format($recursosRecebidos, 0, ',', '.'); ?> </strong>
+                                                <i class="text-c-green ti-money m-r-10"></i>Provisão Recebida: <strong> <?php echo "R$ ". number_format($recursosRecebidos, 0, ',', '.'); ?> </strong>
                                             </span>
                                             <br>
                                             <span class="f-right ">
-                                                <i class="text-c-green ti-money m-r-10"></i>Recursos Devolvidos: <strong> <?php echo number_format($recursosDevolvidos, 0, ',', '.'); ?> </strong>
+                                                <i class="text-c-green ti-money m-r-10"></i>Recursos Devolvidos: <strong> <?php echo "R$ ".number_format($recursosDevolvidos, 0, ',', '.'); ?> </strong>
                                             </span>
                                             <br>
                                             <span class="f-right ">
-                                                <i class="text-c-green ti-money m-r-10"></i>Despesas Liquidadas: <strong> <?php echo number_format($recursosLiquidados, 0, ',', '.'); ?> </strong>
+                                                <i class="text-c-green ti-money m-r-10"></i>Despesas Liquidadas: <strong> <?php echo "R$ ".number_format($recursosLiquidados, 0, ',', '.'); ?> </strong>
                                             </span>
                                             <br>
                                             <span class="f-right ">
-                                                <i class="text-c-green ti-money m-r-10"></i>Recursos Descentralizados: <strong> <?php echo number_format($recursosDescentralizados, 0, ',', '.'); ?> </strong>
+                                                <i class="text-c-green ti-money m-r-10"></i>Recursos Descentralizados: <strong> <?php echo "R$ ".number_format($recursosDescentralizados, 0, ',', '.'); ?> </strong>
                                             </span>
                                             <br>
                                             

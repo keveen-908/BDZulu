@@ -1,35 +1,38 @@
 <?php 
-    
-    $erro = false;
+
+session_start();
+$host = "localhost";
+$user = "root";
+$pass = "@160l0nc3t";
+$db = "bdcolog";
+
+$mysqli = mysqli_connect($host,$user, $pass,$db);
+
     if(isset($_POST['email']) || isset($_POST['senha']) || isset($_POST['input'])){
-        include "acoes/config.php";
-                
+
         $email = $_POST["email"];
         $senha = $_POST["senha"];
-        $pesquisaLogin = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
-        
+        $pesquisaLogin = "SELECT * FROM usuarios WHERE email='$email' ";
         $resultado = $mysqli->query($pesquisaLogin);
         $linha = $resultado->fetch_array();  
         $nomeUsuario = $linha['nome'];     
-        //
+        $hash = $linha['senha'];
 
-        if(mysqli_num_rows($resultado)>0){
+        if(password_verify($senha, $linha['senha'])){
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
 
-            $insert="INSERT INTO loglogin (nome, data) VALUES ('$nomeUsuario', NOW())";
+            $insert="INSERT INTO loglogin (usuario, data) VALUES ('$nomeUsuario', NOW())";
             $mysqli->query($insert);
             
             header("Location: index.php");
             	  
         }else{
-            $erro = "Usuário e/ou senha inválido(s), Tente novamente!";
+            $_SESSION['erro'] = "Usuário e/ou senha inválido(s), Tente novamente!";
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
         }
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -102,10 +105,10 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <?php if($erro !== false) {
+                                <?php if($_SESSION['erro'] != false) {
                                     ?>
                                     <div class="alert alert-danger" role="alert">
-                                        <?php echo $erro; ?>
+                                        <?php echo $_SESSION['erro']; $_SESSION['erro'] = null;?>
                                     </div>
                                     <?php
                                 }
@@ -161,5 +164,4 @@
     <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
     <script type="text/javascript" src="assets/js/common-pages.js"></script>
 </body>
-
 </html>

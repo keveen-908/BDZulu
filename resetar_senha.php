@@ -57,7 +57,7 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form class="md-float-material">
+                        <form class="md-float-material" method="post" action="email.php">
                             <div class="text-center">
                                 
                             </div><img src="assets/images/logo.png" alt="logo.png">
@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Enviar</button>
+                                        <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Enviar</button>
                                     </div>
                                 </div>
                             

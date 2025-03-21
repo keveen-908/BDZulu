@@ -24,10 +24,11 @@ try {
       if (!is_dir($dirUploads)) {
         mkdir($dirUploads);
       }
+      $error=false;
       if (!empty($_FILES['relatorioFinal']['name'][0])) {
         if($_FILES['relatorioFinal']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
-            echo "Upload realizado com sucesso!";
+            $error = "Upload realizado com sucesso!";
             $relatorioFinalName = $relatorioFinal["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -37,7 +38,7 @@ try {
       if (!empty($_FILES['relatorioComando']['name'][0])) {
         if($_FILES['relatorioComando']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
-            echo "Upload realizado com sucesso!";
+            $error = "Upload realizado com sucesso!";
             $relatorioComandoName = $relatorioComando["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -48,7 +49,7 @@ try {
       if (!empty($_FILES['fotos']['name'][0])) {
         if($_FILES['fotos']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
-            echo "Upload realizado com sucesso!";
+            $error = "Upload realizado com sucesso!";
             $fotosName = $fotos["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -58,7 +59,7 @@ try {
       if (!empty($_FILES['outrasDocumentos']['name'][0])) {
         if($_FILES['outrasDocumentos']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
-            echo "Upload realizado com sucesso!";
+            $error = "Upload realizado com sucesso!";
             $outrasDocumentosName = $outrasDocumentos["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -308,7 +309,7 @@ $mysqli->close();
         <h2 style="text-align:center;">Cadastro de Operação</h2>
 
         <form method="POST" enctype="multipart/form-data">
-
+            <?php echo $error."<br>";?>
             <!-- Menu de Abas -->
             <div class="tab">
                 <button type="button" class="tablinks active" onclick="openTab(event, 'dados')">Dados da Operação</button>
@@ -321,6 +322,7 @@ $mysqli->close();
 
             <!-- Seção 1: Dados da Operação -->
             <div id="dados" class="tab-content active">
+            
                 <label for="operacao">Nome da Operação:</label>
                 <input id="input" type="text" name="operacao" id="operacao" placeholder="Operação" required>
 
