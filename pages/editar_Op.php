@@ -32,9 +32,6 @@
     $desManutencao=$rowTipos->desManutencao;
     $desAviacao=$rowTipos->desAviacao;
     $desSuprimento=$rowTipos->desSuprimento;
-      
-
-    print_r($manutencao)
 
 ?>
 <!DOCTYPE html>

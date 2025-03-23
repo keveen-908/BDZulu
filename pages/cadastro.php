@@ -129,7 +129,15 @@
                 <input type="email" name="email" id="email" autocomplete="off" required>
 
                 <label for="comandoOp">Senha:</label>
-                <input type="password" name="senha" id="comandoOp" autocomplete="off" required>
+                <div class="input-group">
+                    <input type="password" id="senha" id="comandoOp" name="senha" class="form-control" placeholder="*********">
+                    <span class="md-line"></span>
+                    <button type="button" id="toggleSenha" class="btn btn-link">
+                        <i class="icofont icofont-eye-alt"></i> <!-- Ícone de olho -->
+                    </button>
+                </div>
+                                                    
+
         
                 <label for="funcao">Função:</label>
                 <select id="funcao" name="funcao" class="">
@@ -154,6 +162,24 @@
 
         </form>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById('toggleSenha').addEventListener('click', function() {
+            var senhaField = document.getElementById('senha');
+            var icon = this.querySelector('i');
+            
+            // Verifica o tipo do campo de senha
+            if (senhaField.type === 'password') {
+                senhaField.type = 'text'; // Exibe a senha
+                icon.classList.remove('icofont-eye-alt'); // Troca o ícone
+                icon.classList.add('icofont-eye'); // Ícone de "olho aberto"
+            } else {
+                senhaField.type = 'password'; // Esconde a senha
+                icon.classList.remove('icofont-eye'); // Troca o ícone
+                icon.classList.add('icofont-eye-alt'); // Ícone de "olho fechado"
+            }
+        });
+    </script>
 
     <script>
         function openTab(evt, tabName) {

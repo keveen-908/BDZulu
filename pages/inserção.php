@@ -1,5 +1,7 @@
 <?php
 
+$error = null;
+
 $tamanhoMaximo = 1024 * 1024 * 5;//5MB
 
 // Inicia a transação
@@ -39,7 +41,6 @@ try {
         if($_FILES['relatorioComando']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
             $error = "Upload realizado com sucesso!";
-
             $relatorioComandoName = $relatorioComando["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -51,7 +52,6 @@ try {
         if($_FILES['fotos']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
             $error = "Upload realizado com sucesso!";
-
             $fotosName = $fotos["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -63,7 +63,7 @@ try {
           if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
 
             $error = "Upload realizado com sucesso!";
-
+            
             $outrasDocumentosName = $outrasDocumentos["name"];
           } else {
             throw new Exception("Não foi possível reaizar o upload.");
@@ -313,7 +313,6 @@ $mysqli->close();
         <h2 style="text-align:center;">Cadastro de Operação</h2>
 
         <form method="POST" enctype="multipart/form-data">
-
             <?php echo $error."<br>";?>
 
             <!-- Menu de Abas -->
