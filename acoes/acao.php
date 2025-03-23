@@ -70,7 +70,7 @@
 
             $resEf = $mysqli->query($sql2) or die($mysqli->error);
 
-            $sql3 = "UPDATE tipoop SET 
+            $sql3 = "UPDATE tipoOp SET 
             acaoOuApoio = '{$acao_apoio}',
             transporte = '{$transporte}',  
             desTransporte = '{$desTransporte}',
@@ -150,7 +150,7 @@
                     echo "Erro ao excluir da tabela 'recursos': " . $mysqli->error;
                 }
 
-                $sql2 = "DELETE FROM tipoop WHERE tid = {$_REQUEST['id']}";
+                $sql2 = "DELETE FROM tipoOp WHERE tid = {$_REQUEST['id']}";
                 $resTipoOp = $mysqli->query($sql2);
                 if ($resTipoOp === FALSE) {
                     echo "Erro ao excluir da tabela 'tipoop': " . $mysqli->error;
@@ -188,7 +188,7 @@
                   $mysqli->close();
             break;        
     }
-    
+  
 ?>
 <script>
     function fecharGuia() {

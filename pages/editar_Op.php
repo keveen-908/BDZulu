@@ -11,7 +11,7 @@
     $res = $mysqli->query($sql);
     $rowEfetivo = $res->fetch_object();
     //pesquisa tipos
-    $sql = "SELECT * FROM tipoop WHERE tid = " . $id;
+    $sql = "SELECT * FROM tipoOp WHERE tid = " . $id;
     $res = $mysqli->query($sql);
     $rowTipos = $res->fetch_object();
     //pesquisa recursos
@@ -32,7 +32,7 @@
     $desManutencao=$rowTipos->desManutencao;
     $desAviacao=$rowTipos->desAviacao;
     $desSuprimento=$rowTipos->desSuprimento;
-    
+      
 
     print_r($manutencao)
 

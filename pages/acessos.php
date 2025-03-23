@@ -7,11 +7,11 @@
                     </thead>
                     <tbody>
                         <?php
-                        $sql_code = "SELECT * FROM loglogin";
+                        $sql_code = "SELECT * FROM loglogin ORDER BY data DESC";
                         $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
                         while($dados = $sql_query->fetch_assoc()) { 
                             echo "<tr>";
-                            echo "<td>".$dados['nome']."</td>";
+                            echo "<td>".$dados['usuario']."</td>";
                             echo "<td>".$dados['data']."</td>";                    
                         }
                     ?>

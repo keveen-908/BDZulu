@@ -10,6 +10,7 @@ $tipoUsuario = @$_POST['tipoUsuario'];
 $submit = @$_POST['submit'];
 
 if($submit){
+    $senha = password_hash($senha, PASSWORD_DEFAULT);
     $insercao = "INSERT INTO usuarios (pg, nome, email, senha, funcao, adm) VALUES ('$pg', '$nome', '$email', '$senha', '$funcao', '$tipoUsuario')";
     $resultado = $mysqli->query($insercao);
     if($resultado){

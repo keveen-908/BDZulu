@@ -41,12 +41,12 @@
     }
     
     // Consulta Tipo de Operação
-    $sql = "SELECT * FROM tipoop WHERE tid = $id_operacao";
+    $sql = "SELECT * FROM tipoOp WHERE tid = $id_operacao";
     $resultTipoOp = $mysqli->query($sql);
     if ($resultTipoOp->num_rows > 0) {
         $row = $resultTipoOp->fetch_assoc();
     
-        @$funcao = @$row['funcao'];
+        @$funcao = @$row['tipoOp'];
         @$acaoOuApoio = @$row['acaoOuApoio'];
         @$transporte = @$row['transporte'];
         @$desTransporte = @$row['desTransporte'];

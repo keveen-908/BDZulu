@@ -1,7 +1,7 @@
 <?php
     include "config.php";
 
-    $conn = new PDO ("mysql:dbname=bdcolog;host=localhost", "root", "");
+    $conn = new PDO ("mysql:dbname=bdcolog;host=localhost", "root", "@160l0nc3t");
  
     //SE ADMINISTRADOR EXISTIR
     if (isset($_POST['administrador'])) {
