@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         <?php
-        $sql_code = "SELECT * FROM logins";
+        $sql_code = "SELECT * FROM logins ORDER BY data DESC";
         $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error); 
         while($dados = $sql_query->fetch_assoc()) { 
             echo "<tr>";

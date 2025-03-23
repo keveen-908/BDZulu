@@ -57,9 +57,8 @@
                 <div class="col-sm-12">
                     <!-- Authentication card start -->
                     <div class="login-card card-block auth-body mr-auto ml-auto">
-                        <form class="md-float-material">
+                        <form class="md-float-material" method="post" action="email.php">
                             <div class="text-center">
-                                
                             </div><img src="assets/images/logo.png" alt="logo.png">
                             <div class="auth-box">
                                 <div class="row m-b-20">
@@ -68,7 +67,6 @@
                                         <h3 class="text-center txt-primary" style="color: gray-800;">Digite seu email e a nova senha será enviada</h3>                                    
                                     </div>
                                 </div>
-                                
                                 <hr/>
                                 <div class="input-group">
                                     <input type="email" name="email" class="form-control" placeholder="Digite seu email:">
@@ -81,7 +79,7 @@
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Enviar</button>
+                                        <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Enviar</input>
                                     </div>
                                 </div>
                             

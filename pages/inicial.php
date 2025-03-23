@@ -83,7 +83,7 @@
                             <span class="text-c-green f-w-600">Acessos</span>
                             <h4>
                                 <?php 
-                                    $sql = "SELECT * FROM logLogin;";
+                                    $sql = "SELECT * FROM loglogin;";
                                     $result = $mysqli->query($sql);
                                     $resultCheck = mysqli_num_rows($result);
                                     echo $resultCheck;  

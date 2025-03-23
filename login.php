@@ -1,29 +1,36 @@
 <?php 
-    
-    $erro = false;
+
+    session_start();
+    $host = "localhost";
+    $user = "root";
+    $pass = "@160l0nc3t";
+    $db = "bdcolog";
+
+    $mysqli = mysqli_connect($host,$user, $pass,$db);
+
     if(isset($_POST['email']) || isset($_POST['senha']) || isset($_POST['input'])){
-        include "acoes/config.php";
                 
         $email = $_POST["email"];
         $senha = $_POST["senha"];
-        $pesquisaLogin = "SELECT * FROM usuarios WHERE email='$email' AND senha='$senha'";
         
+        $pesquisaLogin = "SELECT * FROM usuarios WHERE email='$email' ";
         $resultado = $mysqli->query($pesquisaLogin);
         $linha = $resultado->fetch_array();  
         $nomeUsuario = $linha['nome'];     
+        $hash = $linha['senha'];
         //
 
-        if(mysqli_num_rows($resultado)>0){
+        if(password_verify($senha, $linha['senha'])){
             $_SESSION['email'] = $email;
             $_SESSION['senha'] = $senha;
 
-            $insert="INSERT INTO loglogin (nome, data) VALUES ('$nomeUsuario', NOW())";
+            $insert="INSERT INTO loglogin (usuario, data) VALUES ('$nomeUsuario', NOW())";
             $mysqli->query($insert);
             
             header("Location: index.php");
             	  
         }else{
-            $erro = "Usuário e/ou senha inválido(s), Tente novamente!";
+            $_SESSION['erro'] = "Usuário e/ou senha inválido(s), Tente novamente!";
             unset($_SESSION['email']);
             unset($_SESSION['senha']);
         }
@@ -62,6 +69,10 @@
     <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <style>
+   
+    </style>
 </head>
 
 <body class="fix-menu">
@@ -102,10 +113,10 @@
                                     </div>
                                 </div>
                                 <hr/>
-                                <?php if($erro !== false) {
+                                <?php if($_SESSION['erro'] != false) {
                                     ?>
                                     <div class="alert alert-danger" role="alert">
-                                        <?php echo $erro; ?>
+                                        <?php echo $_SESSION['erro']; $_SESSION['erro'] = null;?>
                                     </div>
                                     <?php
                                 }
@@ -114,9 +125,13 @@
                                     <input type="email" name="email" class="form-control" placeholder="Digite seu email:">
                                     <span class="md-line"></span>
                                 </div>
-                                <div class="input-group">
-                                    <input type="password" name="senha" class="form-control" placeholder="*********">
+
+                                <<div class="input-group">
+                                    <input type="password" id="senha" name="senha" class="form-control" placeholder="*********">
                                     <span class="md-line"></span>
+                                    <button type="button" id="toggleSenha" class="btn btn-link">
+                                        <i class="icofont icofont-eye-alt"></i> <!-- Ícone de olho -->
+                                    </button>
                                 </div>
                                 <div class="row m-t-25 text-right">                  
                                     <div class="col-sm-12 col-xs-12 forgot-phone text-right">
@@ -161,5 +176,23 @@
     <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
     <script type="text/javascript" src="assets/js/common-pages.js"></script>
 </body>
+
+<script type="text/javascript">
+    document.getElementById('toggleSenha').addEventListener('click', function() {
+        var senhaField = document.getElementById('senha');
+        var icon = this.querySelector('i');
+        
+        // Verifica o tipo do campo de senha
+        if (senhaField.type === 'password') {
+            senhaField.type = 'text'; // Exibe a senha
+            icon.classList.remove('icofont-eye-alt'); // Troca o ícone
+            icon.classList.add('icofont-eye'); // Ícone de "olho aberto"
+        } else {
+            senhaField.type = 'password'; // Esconde a senha
+            icon.classList.remove('icofont-eye'); // Troca o ícone
+            icon.classList.add('icofont-eye-alt'); // Ícone de "olho fechado"
+        }
+    });
+</script>
 
 </html>
