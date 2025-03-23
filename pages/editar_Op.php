@@ -34,6 +34,8 @@
     $desSuprimento=$rowTipos->desSuprimento;
       
 
+    print_r($manutencao)
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
