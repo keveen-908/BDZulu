@@ -18,7 +18,6 @@
         $linha = $resultado->fetch_array();  
         $nomeUsuario = $linha['nome'];     
         $hash = $linha['senha'];
-        //
 
         if(password_verify($senha, $linha['senha'])){
             $_SESSION['email'] = $email;
@@ -35,8 +34,6 @@
             unset($_SESSION['senha']);
         }
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -176,7 +173,6 @@
     <script type="text/javascript" src="assets/js/modernizr/css-scrollbars.js"></script>
     <script type="text/javascript" src="assets/js/common-pages.js"></script>
 </body>
-
 <script type="text/javascript">
     document.getElementById('toggleSenha').addEventListener('click', function() {
         var senhaField = document.getElementById('senha');
@@ -194,5 +190,4 @@
         }
     });
 </script>
-
 </html>

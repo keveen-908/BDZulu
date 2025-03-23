@@ -188,7 +188,7 @@
                   $mysqli->close();
             break;        
     }
-    
+  
 ?>
 <script>
     function fecharGuia() {
