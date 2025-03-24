@@ -171,7 +171,7 @@
             
             <h3 class="text-xl mt-3">Detalhamento de Apoios</h3>
             <p><strong>Transporte:</strong> <?= $transporte; ?> - <?= $desTransporte; ?></p>
-            <p><strong>Manutenção:</strong> <?= $manuntecao; ?> - <?= $desManuntencao; ?></p>
+            <p><strong>Manutenção:</strong> <?= $manutencao; ?> - <?= $desManutencao; ?></p>
             <p><strong>Suprimento:</strong> <?= $suprimento; ?> - <?= $desSuprimento; ?></p>
             <p><strong>Aviação:</strong> <?= $aviacao; ?> - <?= $desAviacao; ?></p>
         </div>

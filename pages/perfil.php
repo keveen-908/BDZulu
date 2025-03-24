@@ -1,16 +1,22 @@
 <?php
-
+$submit = @$_POST['submit'];
+if(isset($submit)){
+    
+$postoGd = @$_POST['postoGd'];
+$nomeUsuario = @$_POST['nome'];
+$emailUsuario = @$_POST['email'];
 $senha1 = @$_POST['senha1'];
 $senha2 = @$_POST['senha2'];
-$
+
 
 if($senha1 == $senha2){
     $hash = password_hash($senha1, PASSWORD_DEFAULT);
 
-    $sql = "UPDATE usuarios SET senha= '$hash' WHERE email= '$email'";
+    $sql = "UPDATE usuarios SET senha= '$hash', nome = '$nomeUsuario', email = '$emailUsuario', pg = '$postoGd' WHERE email= '$email'";
     $result = $mysqli -> query($sql);   
 }
 
+}
 // Consultar o valor que foi selecionado anteriormente do banco (exemplo)
 $sql = "SELECT pg FROM usuarios WHERE uid = 1"; // Exemplo de consulta
 $result = $mysqli->query($sql);
@@ -23,7 +29,6 @@ if ($result->num_rows > 0) {
     $selectedValue = $row['pg'];
 
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -117,7 +122,7 @@ if ($result->num_rows > 0) {
             <div id="dados" class="tab-content active">
                 
             <label for="estado">Posto / Graduação:</label>
-            <select name="opcao" id="opcao">
+            <select name="postoGd" id="postoGd">
                 <?php
                 // Exemplo de valores para o select (gerados dinamicamente)
                 $opcoes = ["GEN EX", "GEN DIV", "GEN BRI", "CEL", "TC", "MAJ", "CAP", "1°TEN", "2°TEN", "ASP", "ST", "1°SGT", "2°SGT", "3°SGT", "CB", "SD"];

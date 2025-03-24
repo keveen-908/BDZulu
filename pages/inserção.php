@@ -305,6 +305,34 @@ $mysqli->close();
         .submit-btn:hover {
             background-color: #218838;
         }
+  
+       /* Estilizando o input */
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        /* Estilizando o contador */
+        .contador {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Estilizando a mensagem de aviso */
+        .aviso {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+        }
     </style>
 </head>             
 <body>
@@ -327,10 +355,14 @@ $mysqli->close();
 
             <!-- Seção 1: Dados da Operação -->
             <div id="dados" class="tab-content active">
-            
-                <label for="operacao">Nome da Operação:</label>
-                <input id="input" type="text" name="operacao" id="operacao" placeholder="Operação" required>
 
+                <div class="form-group">
+                  <label for="operacao">Nome da Operação:</label>
+                  <input id="input" type="text" name="operacao" id="operacao" maxlength="50" id="descricao" oninput="limitarCaracteres(this,50)" placeholder="Operação" required>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+               
                 <label for="estado">Estado(UF):</label>
                 <select id="input" id="estado" name="estado" class="" required>
                     <option value="">Selecione o estado</option>
@@ -364,11 +396,13 @@ $mysqli->close();
                     <option value="Internacional">Internacional</option>
                 </select>
 
-                <label for="missao">Missão:</label>
-                <input id="input" type="text" name="missao" placeholder="Missão" id="missao" required>
-
-                
-        
+                <div class="form-group">
+                  <label for="missao">Missão:</label>
+                  <input id="input" type="text" name="missao" placeholder="Missão" id="missao" maxlength="200" oninput="limitarCaracteres(this,200)" required>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+                  
                 <label for="comando">Comando Militar de Área:</label>
                 <select id="input" id="comando" name="cma" class="" required>
                     <option value="">Selecione o Comando Militar de Área</option>
@@ -398,13 +432,21 @@ $mysqli->close();
                     <option value="11ª região militar">11ª região militar</option>
                     <option value="12ª região militar">12ª região militar</option>
                 </select>
+                
+                <div class="form-group">
+                  <label for="comandoOp">Comando da Operação:</label>
+                  <input id="input" type="text" name="comandoOp" placeholder="Comando da Operação" id="comandoOp" maxlength="100" oninput="limitarCaracteres(this,100)" required>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+                  
+                <div class="form-group">
+                  <label for="OrgApoiada">Organização Apoiada:</label>
+                  <input id="input" type="text" name="comandoApoiado" placeholder="Organização Apoiada" id="OrgApoiada" maxlength="100" oninput="limitarCaracteres(this,100)" required>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
 
-                <label for="comandoOp">Comando da Operação:</label>
-                <input id="input" type="text" name="comandoOp" placeholder="Comando da Operação" id="comandoOp" required>
-                
-                <label for="OrgApoiada">Organização Apoiada:</label>
-                <input id="input" type="text" name="comandoApoiado" placeholder="Organização Apoiada" id="OrgApoiada" required>
-                
                 <label for="inicioOp">Ínicio da operação:</label>
                 <input id="input" type="date" name="inicioOp" id="inicioOp" required>
                 
@@ -414,9 +456,13 @@ $mysqli->close();
 
             <!-- Seção 2: Efetivo -->
             <div id="efetivo" class="tab-content">
+                <div class="form-group">
+                  <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
+                  <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" maxlength="100" oninput="limitarCaracteres(this,100)"required>
 
-                <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
-                <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
 
                 <label for="efetivoEb">Efetivo Exército Brasileiro:</label>
                 <input id="input" type="number" placeholder="Quantidade:0" name="participantesEb" id="efetivoEb" required>
@@ -457,6 +503,7 @@ $mysqli->close();
                     <option value="Logística de Apoio a Operações Internacionais">Logística de Apoio a Operações Internacionais</option>
                 </select>
                 <hr>
+                <br>
                 <label for="apoioDesempenhado">Ação ou Apoio Desempenhado:</label>
                 <br>
                 <label for="">Transporte:</label>
@@ -475,8 +522,13 @@ $mysqli->close();
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
 
-                <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desTransporte"  id="" placeholder="Transporte" > 
+                <div class=form-group>
+                  <label for="">Descreva ação ou apoio:</label>
+                  <input id="input" type="text" name="desTransporte"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+ 
 
                 <label for="">Manunteção:</label>
                 <select id="input" id="" name="manutencao"  class="">
@@ -493,8 +545,13 @@ $mysqli->close();
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManutencao" id=""  placeholder="Manuntenção" > 
+                <input id="input" type="text" name="desManutencao" id=""  placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
 
                 <label for="">Suprimento:</label>
                 <select id="input" id="" name="suprimento"  class="">
@@ -511,8 +568,13 @@ $mysqli->close();
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desSuprimento"  id="" placeholder="Suprimento" > 
+                <input id="input" type="text" name="desSuprimento"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
 
                 <label for="">Aviação:</label>
                 <select id="input" id="" name="aviacao"  class="">
@@ -529,8 +591,13 @@ $mysqli->close();
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+                
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desAviacao"  id="" placeholder="Aviação" > 
+                <input id="input" type="text" name="desAviacao"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
             
             </div>
 
@@ -553,27 +620,42 @@ $mysqli->close();
 
             <!-- Seção 5: Outras Informações -->
             <div id="outras" class="tab-content">
-                <label for="op"> Síntese da Operação:</label>
-                <textarea name="sintase" id="input" required rows="2"></textarea>
+                <div class="form-group">
+                  <label for="op"> Síntese da Operação:</label>
+                  <textarea name="sintase" id="input" required rows="2" maxlength="200" oninput="limitarCaracteres(this,200)"></textarea>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+                
                 <hr>
-                <label for="informacoes"> Outras Informações:</label>
-                <textarea name="outrasInfos" id="input" rows="4"></textarea>
+                
+                <div class="form-group">
+                  <label for="informacoes"> Outras Informações:</label>
+                  <textarea name="outrasInfos" id="input" rows="4" maxlength="200" oninput="limitarCaracteres(this,200)"></textarea>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
             </div>
             
 
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
-                <label for="relatorioFinal">Relatório Final:</label>
-                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" onchange="validarTamanhoArquivo('relatorioFinal')">
 
-                <label for="relatorioComando">Relatório do Comando Logístico:</label>
-                <input class="input" type="file" name="relatorioComando" id="relatorioComando" onchange="validarTamanhoArquivo('relatorioComando')">
+              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
+              <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" 
+                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
 
-                <label for="fotos">Anexar fotos:</label>
-                <input class="input" type="file" name="fotos" id="fotos" onchange="validarTamanhoArquivo('fotos')">
+              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
+              <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" 
+                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
 
-                <label for="outrasDocumentos">Anexar Documento:</label>
-                <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" onchange="validarTamanhoArquivo('outrosDocs')">
+              <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
+              <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple 
+                    onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
+
+              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 10MB):</label>
+              <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" 
+                    onchange="validarArquivo('outrosDocs', [], 1, 10)">
 
             </div>
 
@@ -615,8 +697,22 @@ $mysqli->close();
             document.getElementById("dados").style.display = "block";
         });
 
+        function limitarCaracteres(campo, limite) {
+            var formGroup = campo.parentElement; // Obtém o contêiner do campo
+            var contador = formGroup.querySelector(".contador");
+            var aviso = formGroup.querySelector(".aviso");
 
+            if (campo.value.length > limite) {
+                campo.value = campo.value.substring(0, limite);
+            }
 
+            var restante = limite - campo.value.length;
+            contador.textContent = restante + " caracteres restantes";
+
+            // Exibe ou oculta o aviso conforme necessário
+            aviso.style.display = (restante === 0) ? "block" : "none";
+        }
+                    
         const fields = document.querySelectorAll("#input")
         function ValidateField(field) {
             // logica para verificar se existem erros
@@ -660,23 +756,41 @@ $mysqli->close();
             field.addEventListener("blur", customValidation)
         }
 
-        function validarTamanhoArquivo(seletorCampo)
-        {
-        // Receber o valor do campo
-        var imagem = document.getElementById(seletorCampo);
-        //console.log(imagem.files[0].size);
+     
+        //VALIDACAO ANEXOS 
+        function validarArquivo(idCampo, formatosPermitidos, maxArquivos, maxTamanhoMB) {
+            var input = document.getElementById(idCampo);
+            var arquivos = input.files;
+            var maxTamanhoBytes = maxTamanhoMB * 1024 * 1024; // Convertendo MB para Bytes
 
-        // Tamanho máximo do arquivo 2mb
-        if(imagem.files[0].size > (1024 * 1024 * 2)){
+            // Verifica quantidade de arquivos
+            if (arquivos.length > maxArquivos) {
+                alert(`⚠️ Você pode enviar no máximo ${maxArquivos} arquivo(s).`);
+                input.value = ""; // Limpa o campo
+                return;
+            }
 
-            // Apresentar a mensagem de erro
-            alert("Tamanho máximo permitido do arquivo é 2mb.");
+            // Verifica formato e tamanho dos arquivos
+            for (var i = 0; i < arquivos.length; i++) {
+                var arquivo = arquivos[i];
+                var extensao = arquivo.name.split('.').pop().toLowerCase();
+                
+                // Validação de formato
+                if (formatosPermitidos.length > 0 && !formatosPermitidos.includes(extensao)) {
+                    alert(`⚠️ Formato inválido! Permitidos: ${formatosPermitidos.join(", ").toUpperCase()}.`);
+                    input.value = ""; // Limpa o campo
+                    return;
+                }
 
-            // Limpar o campo arquivo
-            imagem.value = '';
-            //(imagem ? imagem.value = '' : null)
+                // Validação de tamanho
+                if (arquivo.size > maxTamanhoBytes) {
+                    alert(`⚠️ O arquivo "${arquivo.name}" excede o limite de ${maxTamanhoMB}MB.`);
+                    input.value = ""; // Limpa o campo
+                    return;
+                }
+            }
         }
-        }
+        
     </script>
 </body>
 </html>

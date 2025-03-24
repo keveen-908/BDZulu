@@ -138,8 +138,15 @@
 
             <!-- Seção 1: Dados da Operação -->
             <div id="dados" class="tab-content active">
-                <label for="operacao">Nome da Operação:</label>
-                <input id="input" type="text" value="<?php print $row->operacao;?>"name="operacao" id="operacao" placeholder="Operação" required>
+           
+
+                <div class="form-group">
+                  <label for="operacao">Nome da Operação:</label>
+                  <input id="input" type="text" value="<?php print $row->operacao;?>" name="operacao" id="operacao" maxlength="50" id="descricao" oninput="limitarCaracteres(this,50)" placeholder="Operação" required>
+
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
 
                 <label for="estado">Estado(UF):</label>
                 <select id="input" id="estado" value="poio" name="estado" class="" required>
@@ -173,9 +180,13 @@
                     <option value="Tocantins">Tocantins</option>
                     <option value="Internacional">Internacional</option>
                 </select>
-
+                
+                <div class="form-group">
                 <label for="missao">Missão:</label>
-                <input id="input" type="text" name="missao" value="<?php print $row->missao;?>" placeholder="Missão" id="missao" required>
+                <input id="input" type="text" name="missao" value="<?php print $row->missao;?>" placeholder="Missão" id="missao" requiredmaxlength="200" id="descricao" oninput="limitarCaracteres(this,200)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
 
                 
         
@@ -209,11 +220,19 @@
                     <option value="12ª região militar">12ª região militar</option>
                 </select>
 
+                <div class="form-group">
                 <label for="comandoOp">Comando da Operação:</label>
-                <input id="input" type="text" name="comandoOp" value="<?php print $row->comandoOp;?>" placeholder="Comando da Operação" id="comandoOp" required>
+                <input id="input" type="text" name="comandoOp" value="<?php print $row->comandoOp;?>" placeholder="Comando da Operação" id="comandoOp" requiredmaxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
                 
+                <div class="form-group">
                 <label for="OrgApoiada">Organização Apoiada:</label>
-                <input id="input" type="text" name="comandoApoiado" value="<?php print $row->comandoApoio;?>" placeholder="Organização Apoiada" id="OrgApoiada" required>
+                <input id="input" type="text" name="comandoApoiado" value="<?php print $row->comandoApoio;?>" placeholder="Organização Apoiada" id="OrgApoiada" required maxlength="100"            id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
                 
                 <label for="inicioOp">Ínicio da operação:</label>
                 <input id="input" type="date" name="inicioOp" value="<?php print $row->inicioOp;?>" id="inicioOp" required>
@@ -227,8 +246,12 @@
            <!-- Seção 2: Efetivo -->
            <div id="efetivo" class="tab-content">
 
+                <div class="form-group">
                 <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
-                <input id="input" type="text" name="participantes" value="<?php print $rowEfetivo->participantes;?>" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required>
+                <input id="input" type="text" name="participantes" value="<?php print $rowEfetivo->participantes;?>" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
 
                 <label for="efetivoEb">Efetivo Exército Brasileiro:</label>
                 <input id="input" type="number" placeholder="Quantidade:0" value="<?php print $rowEfetivo->participantesEb;?>" name="participantesEb" id="efetivoEb" required>
@@ -287,8 +310,13 @@
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
 
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte" > 
+                <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte"maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
+
                 <hr><br>
                 <label for="">Manutenção:</label>
                 <select id="input" id="" name="manutencao"  class="">
@@ -305,8 +333,13 @@
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManutencao" id="" value="<?php print @$desManutencao;?>" placeholder="Manuntenção" > 
+                <input id="input" type="text" name="desManutencao" id="" value="<?php print @$desManutencao;?>" placeholder="Manuntenção" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
+
                 <hr><br>
                 <label for="">Suprimento:</label>
                 <select id="input" id="" name="suprimento"  class="">
@@ -323,8 +356,14 @@
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$desSuprimento;?>" placeholder="Não foi preenchido" > 
+                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$desSuprimento;?>" placeholder="Não foi preenchido" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
+
                 <hr><br>
                 <label for="">Aviação:</label>
                 <select id="input" id="" name="aviacao"  placeholder="Não foi preenchido"class="">
@@ -341,8 +380,13 @@
                     <option value="Classe X">Classe X</option>
                     <option value="Mais de uma Classe">Mais de uma Classe</option>
                 </select>
+
+                <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$desAviacao;?>" placeholder="Aviação" > 
+                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$desAviacao;?>" placeholder="Aviação" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
             
             </div>
 
@@ -366,11 +410,43 @@
             <!-- Seção 5: Outras Informações -->
 
             <div id="outras" class="tab-content ">
-                <label for="informacoes"> Síntese da Operação:</label>
-                <textarea name="sintase" id="input" id="informacoes" required rows="2"><?php print $sintaseOp?></textarea>
+            <div class="form-group">
+                  <label for="op"> Síntese da Operação:</label>
+                  <textarea name="sintase" id="input" required rows="2" maxlength="200" oninput="limitarCaracteres(this,200)"><?php print $sintaseOp?></textarea>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
+                
                 <hr>
-                <label for="informacoes"> Outras Informações:</label>
-                <textarea name="outrasInfos" id="informacoes" rows="4"><?php print $outrasinfos?></textarea>
+                
+                <div class="form-group">
+                  <label for="informacoes"> Outras Informações:</label>
+                  <textarea name="outrasInfos" id="input" rows="4" maxlength="200" oninput="limitarCaracteres(this,200)"><?php print $outrasinfos?></textarea>
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso"></p>
+                </div>
+
+            </div>
+
+            <!-- Seção 6: Anexos -->
+            <div id="anexos" class="tab-content">
+
+              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
+              <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" 
+                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
+
+              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
+              <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" 
+                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
+
+              <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
+              <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple 
+                    onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
+
+              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 10MB):</label>
+              <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" 
+                    onchange="validarArquivo('outrosDocs', [], 1, 10)">
+
             </div>
             
             <!-- Botão de Envio -->
@@ -384,6 +460,22 @@
     </div>
 
     <script>
+        function limitarCaracteres(campo, limite) {
+            var formGroup = campo.parentElement; // Obtém o contêiner do campo
+            var contador = formGroup.querySelector(".contador");
+            var aviso = formGroup.querySelector(".aviso");
+
+            if (campo.value.length > limite) {
+                campo.value = campo.value.substring(0, limite);
+            }
+
+            var restante = limite - campo.value.length;
+            contador.textContent = restante + " caracteres restantes";
+
+            // Exibe ou oculta o aviso conforme necessário
+            aviso.style.display = (restante === 0) ? "block" : "none";
+        }
+        //tabela funcao
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             
@@ -416,7 +508,7 @@
         });
 
 
-
+        //color das barras
         const fields = document.querySelectorAll("#input")
         function ValidateField(field) {
             // logica para verificar se existem erros
