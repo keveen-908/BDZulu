@@ -9,7 +9,7 @@ $mysqli->begin_transaction();
 
 try {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+      /*
       $relatorioFinal = $_FILES["relatorioFinal"];
       $relatorioComando = $_FILES["relatorioComando"];
       $fotos = $_FILES["fotos"];
@@ -19,14 +19,54 @@ try {
       $relatorioComandoName = null;
       $fotosName = null;
       $outrasDocumentosName = null;
+      */
 
-    
-      $dirUploads = "./uploads";
-    
-      if (!is_dir($dirUploads)) {
-        mkdir($dirUploads);
+      // Salva nome da operação
+      $nome_operacao = $_POST['operacao'];
+
+      // Diretório de uploads
+      $dirOperacao = "./uploads".DIRECTORY_SEPARATOR. preg_replace("/[^a-zA-Z0-9_]/", "_", $nome_operacao) . "/"; // Substitui espaços por "_"
+      if (!is_dir($dirOperacao)) {
+        mkdir($dirOperacao, 0777, true); // Criar a pasta, se não existir
       }
-      $error=false;
+    
+      // Função para processar um arquivo individual
+      function processarArquivo($nome, $tipos_permitidos, $dir) {
+        if (!empty($_FILES[$nome]['name'])) {
+            $extensao = pathinfo($_FILES[$nome]['name'], PATHINFO_EXTENSION);
+            if (in_array(strtolower($extensao), $tipos_permitidos)) {
+                $novoNome = uniqid() . "." . $extensao;
+                move_uploaded_file($_FILES[$nome]['tmp_name'], $dir . $novoNome);
+                return $novoNome;
+            }
+        }
+        return null;
+      }
+
+      $relatorioComando = processarArquivo("relatorioComando", ["pdf"], $dirOperacao);
+      $relatorioFinal = processarArquivo("relatorioFinal", ["pdf"], $dirOperacao);
+      $arquivoDiverso = processarArquivo("diversos", ["pdf", "doc", "docx", "xls", "xlsx", "zip"], $dirOperacao);
+
+      $imagens = [];
+
+      if (!empty($_FILES['fotos']['name'][0])){
+        $files = $_FILES['fotos'];
+        $names= $files['name'];
+        $tmp_name = $files['tmp_name'];
+        
+        foreach ($names as $index => $name) {
+          if ($index >= 5) break;
+          $extensao = pathinfo($name, PATHINFO_EXTENSION);
+          if (in_array(strtolower($extensao), ["jpg", "jpeg", "png", "gif"])) {
+              $newName = uniqid() . "." . $extensao;
+              move_uploaded_file($tmp_name[$index], $dirOperacao . $newName);
+              $imagens[] = $newName;
+          }
+        }
+      }
+
+
+      /*
       if (!empty($_FILES['relatorioFinal']['name'][0])) {
         if($_FILES['relatorioFinal']['size'] < $tamanhoMaximo){
           if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
@@ -70,7 +110,7 @@ try {
           }
         }
       }
-
+      */
 
     //operação
 
@@ -196,8 +236,8 @@ try {
       $mysqli->query($sql);
 
         /* insere os dados dos anexos */
-
-      $sql = "INSERT INTO anexos (relatorioFinal,relatorioComando,fotos,outrosDocumentos) VALUES ('$relatorioFinalName','$relatorioComandoName','$fotosName','$outrasDocumentosName')";
+      $fotos_json = json_encode($imagens);
+      $sql = "INSERT INTO anexos (relatorioFinal,relatorioComando,fotos,outrosDocumentos) VALUES ('$relatorioFinal','$relatorioComando','$fotos_json','$arquivoDiverso')";
 
       $mysqli->query($sql);
 
@@ -654,7 +694,7 @@ $mysqli->close();
                     onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
 
               <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 10MB):</label>
-              <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" 
+              <input class="input" type="file" name="diversos" id="outrosDocs" 
                     onchange="validarArquivo('outrosDocs', [], 1, 10)">
 
             </div>

@@ -93,7 +93,7 @@
 
               <?php
               $pesquisa = $mysqli->real_escape_string($nomeUsuario);
-              $sql_code = "SELECT * FROM operacao WHERE operador LIKE '%$pesquisa%'";
+              $sql_code = "SELECT * FROM operacao WHERE operador LIKE '%$pesquisa%' ";
               $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error);  
               if ($sql_query->num_rows == 0) {
               ?>

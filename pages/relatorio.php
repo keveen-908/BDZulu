@@ -80,7 +80,7 @@
         @$outrasInfos = $row['outrasInfos'];
     }
     
-    // Consulta Anexos
+    /* Consulta Anexos
     $sql = "SELECT * FROM anexos WHERE aid = $id_operacao";
     $resultAnexo = $mysqli->query($sql);
     if ($resultAnexo->num_rows > 0) {
@@ -90,7 +90,23 @@
         @$relatorioComando = $row['relatorioComando'];
         @$fotos = $row['fotos'];
         @$outrasDocumentos = $row['outrasDocumentos'];
-    }
+    }*/
+
+    $sql = "SELECT * FROM anexos WHERE aid = $id_operacao";
+    $resultAnexo = $mysqli->query($sql);
+    $anexo = $resultAnexo->fetch_assoc();
+    
+    $relatorioFinal = $anexo['relatorioFinal'];
+    $relatorioComando = $anexo['relatorioComando'];
+    $outrosDocumentos = $anexo['outrosDocumentos'];
+    
+    $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
+    
+    var_dump($imagens);
+    $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
+    printf($dirOperacao);
+    
+
     ?>
 
 <!DOCTYPE html>
@@ -197,42 +213,54 @@
         <!-- Seção 6 -->
         <div class="card p-4 rounded-xl">
             <h2 class="text-2xl font-semibold mb-3">Anexos</h2>
-
+            
+               <!-- Exibir link para o Relatório Final -->
             <p><strong>Relatório Final:</strong> 
-                <a href="../../uploads/<?php echo $relatorioFinal ?>" target="_blank"><?php echo $relatorioFinal ?></a>
+                <?php if (!empty($relatorioFinal)): ?>
+                    <a href="<?php echo $dirOperacao . $relatorioFinal ?>" target="_blank">📄 Abrir Relatório Final</a>
+                <?php else: ?>
+                    <span>Nenhum Documento Anexado.</span>
+                <?php endif; ?>
             </p>
 
-            <p><strong>Relatório do Comando Logístico:</strong> 
-                <a href="../../uploads/<?php echo $relatorioComando ?>" target="_blank"><?php echo $relatorioComando ?></a>
+              <!-- Exibir link para o Relatório Final -->
+            <p><strong>Relatório Comando Logístico:</strong> 
+                <?php if (!empty($relatorioComando)): ?>
+                    <a href="<?php echo $dirOperacao . $relatorioComando ?>" target="_blank">📄 Abrir Relatório Comando Logístico</a>
+                <?php else: ?>
+                    <span>Nenhum Documento Anexado.</span>
+                <?php endif; ?>
             </p>
 
+            <!-- Exibir link para outros documentos -->
             <p><strong>Outros Documentos:</strong> 
-                <a href="../../uploads/<?php echo $fotos ?>" target="_blank"><?php echo $fotos ?></a>
+                <?php if (!empty($outrasDocumentos)): ?>
+                    <a href="<?php echo $dirOperacao . $outrasDocumentos ?>" target="_blank">📄 Abrir Outros Documentos</a>
+                <?php else: ?>
+                    <span>Nenhum Documento Anexado.</span>
+                <?php endif; ?>
             </p>
 
-            <p><strong>Fotos:</strong> 
-                <a href="../../uploads/<?php echo $outrasDocumentos ?>" target="_blank"><?php echo $outrasDocumentos ?></a>
+            <!-- Exibir link para as fotos -->
+             
+            <p><strong>Fotos:</strong>
+                    <?php if (!empty($imagens) && is_array($imagens)): ?>
+                    <div class="row">
+                        <?php foreach ($imagens as $imagem): ?>
+                            <?php if (!empty(trim($imagem))): ?>
+                                <div class="col-md-3 col-6 mb-3"> <!-- 4 imagens por linha no desktop, 2 no mobile -->
+                                    <img src="<?= $dirOperacao . htmlspecialchars($imagem); ?>" 
+                                        class="img-fluid rounded shadow-sm" 
+                                        style="height: 150px; object-fit: cover; width: 100%;"
+                                        alt="Foto da Operação">
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <p>Nenhuma imagem anexada.</p>
+                <?php endif; ?>
             </p>
-
-            <!-- Galeria de imagens lado a lado -->
-            <?php
-                // Explodir as fotos em um array, separando por vírgula
-                $fotosArray = explode(',', $fotos); 
-            ?>
-
-            <div class="row mt-4">
-                <?php foreach ($fotosArray as $foto): ?>
-                    <?php if (!empty(trim($foto))): ?>
-                        <div class="col-md-3 col-6 mb-3"> <!-- 4 imagens por linha no desktop, 2 no mobile -->
-                            <img src="../../uploads/<?= trim($foto); ?>" 
-                                class="img-fluid rounded shadow-sm" 
-                                style="height: 150px; object-fit: cover; width: 75%;"
-                                alt="Foto da Operação">
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-        </div>
 
 
     </div>

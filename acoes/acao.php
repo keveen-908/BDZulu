@@ -3,6 +3,24 @@
     include_once('config.php');
     switch ($_REQUEST['acao']) {
         case 'editar':
+            
+            $dirUploads = "../uploads/";
+
+           
+
+            $files = $_FILES['fotos'];
+
+
+            $names= $files['name'];
+            $tmp_name = $files['tmp_name'];
+            
+            foreach($names as $index => $name ){
+                $extensao = pathinfo($name, PATHINFO_EXTENSION);
+                $newName = uniqid().DIRECTORY_SEPARATOR.$extensao;
+                move_uploaded_file($tmp_name[$index], $dirUploads.$newName);
+            }
+    
+
             $nomeOp = $_POST['operacao'];
             $missao = $_POST['missao'];
             $estado = $_POST['estado'];

@@ -2,6 +2,11 @@
     
     include_once('../acoes/config.php');
     $id = $_REQUEST['id'];
+
+    //pesquisa anexos
+    $sql = "SELECT * FROM anexos WHERE aid = " . $id;
+    $res = $mysqli->query($sql);
+    $rowAnexos = $res->fetch_object();
     //pesquisa operacao
     $sql = "SELECT * FROM operacao WHERE opid = " . $id;
     $res = $mysqli->query($sql);
@@ -123,7 +128,7 @@
     <div class="container table-sm">
         <h1 style="text-align:center;">Editar Operação</h1>
 
-        <form action="../acoes/acao.php" method="POST">
+        <form action="../acoes/acao.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="acao" value="editar">
             <input type="hidden" name="id" value="<?php print $id;?>">
             <!-- Menu de Abas -->
