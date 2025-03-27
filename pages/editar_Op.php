@@ -3,6 +3,7 @@
     include_once('../acoes/config.php');
     $id = $_REQUEST['id'];
 
+ 
     //pesquisa anexos
     $sql = "SELECT * FROM anexos WHERE aid = " . $id;
     $res = $mysqli->query($sql);
@@ -11,6 +12,7 @@
     $sql = "SELECT * FROM operacao WHERE opid = " . $id;
     $res = $mysqli->query($sql);
     $row = $res->fetch_object();
+    $operacao = $row->operacao;
     //pesquisa efetivo
     $sql = "SELECT * FROM efetivo WHERE eid = " . $id;
     $res = $mysqli->query($sql);
@@ -27,7 +29,19 @@
     $sql = "SELECT * FROM infos WHERE iid = " . $id;
     $res = $mysqli->query($sql);
     $rowInfo = $res->fetch_object();
+    //pesquisa anexos
+    $sql = "SELECT * FROM anexos WHERE aid = $id";
+    $resultAnexo = $mysqli->query($sql);
+    $anexo = $resultAnexo->fetch_assoc();
     
+    $relatorioFinal = $anexo['relatorioFinal'];
+    $relatorioComando = $anexo['relatorioComando'];
+    $outrosDocumentos = $anexo['outrosDocumentos'];
+    
+    $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
+    
+    $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
+        
     $outrasinfos = $sintaseOp = $manutencao = $desManutencao = $desAviacao = $desSuprimentos = null;
     
     $sintaseOp = $rowInfo->sintaseOp;
@@ -37,6 +51,9 @@
     $desManutencao=$rowTipos->desManutencao;
     $desAviacao=$rowTipos->desAviacao;
     $desSuprimento=$rowTipos->desSuprimento;
+
+   
+ 
 
 ?>
 <!DOCTYPE html>
@@ -436,31 +453,63 @@
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
 
-              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
-              <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" 
-                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
+                <!-- Relatório Final -->
+                <label><h5><b>Relatório Final:</b></h5>
+                    <?php if (!empty($relatorioFinal)): ?>
+                        <p>Arquivo Atual: <a href="<?php echo $dirOperacao . $relatorioFinal ?>" target="_blank">📄 Baixar Relatório</a></p>
+                        <input type="hidden" name="relatorio_final_antigo" value="<?= !empty($relatorioFinal) ? $relatorioFinal : '' ?>">
+                    <?php endif; ?>
+                </label>
+                <br>
+                <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
+                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
+                <hr>
 
-              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
-              <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" 
-                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
+                <!-- Relatório Comando Logístico -->
+                <hr>
+                <label><h5><b>Relatório do Comando Logístico:</b></h5>
+                    <?php if (!empty($relatorioComando)): ?>
+                        <p>Arquivo Atual: <a href="<?php echo $dirOperacao . $relatorioComando ?>" target="_blank">📄 Baixar Relatório</a></p>
+                        <input type="hidden" name="relatorio_comando_antigo" value="<?= !empty($relatorioComando) ? $relatorioComando : '' ?>">
+                    <?php endif; ?>
+                </label>
+                <br>
+                <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
+                <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
+                <hr>
 
-              <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
-              <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple 
-                    onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
+                <!-- Fotos -->
+                <hr>
+                <label><h5><b>Fotos da Operação:</b></h5></label>
+                <div style="display: flex; gap: 10px;">
+                    <?php if (!empty($imagens)):
+                        foreach ($imagens as $imagem): ?>
+                            <img src="<?php echo $dirOperacao . htmlspecialchars($imagem) ?>" width="100">
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <input type="hidden" name="imagens_anteriores" value='<?= !empty($anexo['fotos']) ? htmlspecialchars($anexo['fotos']) : '' ?>'>
+                <br>
+                <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
+                <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
+                <hr>
 
-              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 10MB):</label>
-              <input class="input" type="file" name="outrasDocumentos" id="outrosDocs" 
-                    onchange="validarArquivo('outrosDocs', [], 1, 10)">
-
+                <!-- Outros Documentos -->
+                <hr>
+                <label><h5><b>Anexar Documento (PDF, DOC, DOCX, ZIP - máx. 10MB):</b></h5></label>
+                <?php if (!empty($outrosDocumentos)): ?>
+                    <p>Arquivo Atual: <a href="<?php echo $dirOperacao . $outrosDocumentos ?>" target="_blank">📄 Baixar Documento</a></p>
+                    <input type="hidden" name="arquivo_diverso_antigo" value="<?= !empty($outrosDocumentos) ? $outrosDocumentos : '' ?>">
+                <?php endif; ?>
+                <br>
+                <label for="outrosDocs">Anexar Documento (PDF, DOC, DOCX, ZIP - máx. 10MB):</label>
+                <input class="input" type="file" name="outrosDocumentos" id="outrosDocs" onchange="validarArquivo('outrosDocs', [], 1, 10)">
             </div>
-            
+
             <!-- Botão de Envio -->
             <input id="input" type="submit" name="submit" class="submit-btn"></input>
 
             </div>
-
-            
-
         </form>
     </div>
 

@@ -9,17 +9,6 @@ $mysqli->begin_transaction();
 
 try {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-      /*
-      $relatorioFinal = $_FILES["relatorioFinal"];
-      $relatorioComando = $_FILES["relatorioComando"];
-      $fotos = $_FILES["fotos"];
-      $outrasDocumentos = $_FILES["outrasDocumentos"];
-
-      $relatorioFinalName = null;
-      $relatorioComandoName = null;
-      $fotosName = null;
-      $outrasDocumentosName = null;
-      */
 
       // Salva nome da operação
       $nome_operacao = $_POST['operacao'];
@@ -64,53 +53,6 @@ try {
           }
         }
       }
-
-
-      /*
-      if (!empty($_FILES['relatorioFinal']['name'][0])) {
-        if($_FILES['relatorioFinal']['size'] < $tamanhoMaximo){
-          if (move_uploaded_file($relatorioFinal["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioFinal["name"])) {
-            $error = "Upload realizado com sucesso!";
-            $relatorioFinalName = $relatorioFinal["name"];
-          } else {
-            throw new Exception("Não foi possível reaizar o upload.");
-          }
-        }
-      }
-      if (!empty($_FILES['relatorioComando']['name'][0])) {
-        if($_FILES['relatorioComando']['size'] < $tamanhoMaximo){
-          if (move_uploaded_file($relatorioComando["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $relatorioComando["name"])) {
-            $error = "Upload realizado com sucesso!";
-            $relatorioComandoName = $relatorioComando["name"];
-          } else {
-            throw new Exception("Não foi possível reaizar o upload.");
-        
-          }
-        }
-      }
-      if (!empty($_FILES['fotos']['name'][0])) {
-        if($_FILES['fotos']['size'] < $tamanhoMaximo){
-          if (move_uploaded_file($fotos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $fotos["name"])) {
-            $error = "Upload realizado com sucesso!";
-            $fotosName = $fotos["name"];
-          } else {
-            throw new Exception("Não foi possível reaizar o upload.");
-          }
-        }
-      }
-      if (!empty($_FILES['outrasDocumentos']['name'][0])) {
-        if($_FILES['outrasDocumentos']['size'] < $tamanhoMaximo){
-          if (move_uploaded_file($outrasDocumentos["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $outrasDocumentos["name"])) {
-
-            $error = "Upload realizado com sucesso!";
-            
-            $outrasDocumentosName = $outrasDocumentos["name"];
-          } else {
-            throw new Exception("Não foi possível reaizar o upload.");
-          }
-        }
-      }
-      */
 
     //operação
 

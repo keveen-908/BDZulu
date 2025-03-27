@@ -109,7 +109,7 @@
                                         <h3 class="text-left txt-primary">Banco de Dados - Zulu</h3>
                                     </div>
                                 </div>
-                                <hr/>
+                              
                                 <?php if($_SESSION['erro'] != false) {
                                     ?>
                                     <div class="alert alert-danger" role="alert">

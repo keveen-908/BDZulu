@@ -4,22 +4,70 @@
     switch ($_REQUEST['acao']) {
         case 'editar':
             
-            $dirUploads = "../uploads/";
-
-           
-
-            $files = $_FILES['fotos'];
-
-
-            $names= $files['name'];
-            $tmp_name = $files['tmp_name'];
-            
-            foreach($names as $index => $name ){
-                $extensao = pathinfo($name, PATHINFO_EXTENSION);
-                $newName = uniqid().DIRECTORY_SEPARATOR.$extensao;
-                move_uploaded_file($tmp_name[$index], $dirUploads.$newName);
+            $id = $_REQUEST['id'];
+            // Diretório de uploads
+            $nome_operacao = $_POST['operacao'];
+            $dirOperacao = "./uploads".DIRECTORY_SEPARATOR. preg_replace("/[^a-zA-Z0-9_]/", "_", $nome_operacao) . "/"; // Substitui espaços por "_"
+            if (!is_dir($dirOperacao)) {
+                mkdir($dirOperacao, 0777, true); // Criar a pasta, se não existir
             }
-    
+            
+            
+            //funcao o para processar e substituir arquivos
+            function processarArquivo($input_name, $dir, $arquivo_antigo) {
+                if (!empty($_FILES[$input_name]['name'])) {
+                    $extensao = pathinfo($_FILES[$input_name]['name'], PATHINFO_EXTENSION);
+                    $novoNome = uniqid() . "." . $extensao;
+            
+                    if (move_uploaded_file($_FILES[$input_name]['tmp_name'], $dir . $novoNome)) {
+                        if (!empty($arquivo_antigo)) {
+                            unlink($dir . $arquivo_antigo);
+                        }
+                        return $novoNome;
+                    }
+                }
+                return $arquivo_antigo;
+            }
+
+            // Processar relatórios e arquivos diversos
+            $relatorioComando = processarArquivo('relatorioComando', $dirOperacao, $_POST['relatorio_comando_antigo']);
+            $relatorioFinal = processarArquivo('relatorioFinal', $dirOperacao, $_POST['relatorio_final_antigo']);
+            $arquivoDiverso = processarArquivo('outrosDocumentos', $dirOperacao, $_POST['arquivo_diverso_antigo']);
+
+            // Processar imagens
+            $imagens_anteriores = json_decode($_POST['imagens_anteriores'], true);
+            $novas_imagens = [];
+
+            if (!empty($_FILES['fotos']['name'][0])) {
+                foreach ($_FILES['fotos']['name'] as $index => $name) {
+                    $extensao = pathinfo($name, PATHINFO_EXTENSION);
+                    $novoNome = uniqid() . "." . $extensao;
+            
+                    if (move_uploaded_file($_FILES['fotos']['tmp_name'][$index], $dirOperacao . $novoNome)) {
+                        $novas_imagens[] = $novoNome;
+                    }
+                }
+            
+                // Excluir imagens antigas se novas foram enviadas
+                foreach ($imagens_anteriores as $imagem) {
+                    unlink($dirOperacao . $imagem);
+                }
+            } else {
+                $novas_imagens = $imagens_anteriores;
+            }
+
+            // Atualizar banco de dados
+            $fotos_json = json_encode($novas_imagens);
+
+            /* insere os dados dos anexos */
+            $sql = "UPDATE anexos 
+            SET relatorioFinal = '$relatorioFinal', 
+                relatorioComando = '$relatorioComando', 
+                fotos = '$fotos_json', 
+                outrosDocumentos = '$arquivoDiverso' 
+            WHERE aid = $id";
+            $resAnexos = $mysqli->query($sql) or die("Erro ao atualizar anexos: " . $mysqli->error);
+            
 
             $nomeOp = $_POST['operacao'];
             $missao = $_POST['missao'];

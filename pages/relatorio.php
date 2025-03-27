@@ -261,8 +261,6 @@
                     <p>Nenhuma imagem anexada.</p>
                 <?php endif; ?>
             </p>
-
-
     </div>
     <BR>
      <!-- Botões -->
