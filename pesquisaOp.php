@@ -146,7 +146,7 @@ include("acoes/config.php");
                                 <ul class="show-notification profile-notification">
                               
                                     <li>
-                                        <a href="#">
+                                        <a href="index.php?p=perfil">
                                             <i class="ti-user"></i> Perfil
                                         </a>
                                     </li>                                                        

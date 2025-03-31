@@ -18,6 +18,7 @@
         $linha = $resultado->fetch_array();  
         $nomeUsuario = $linha['nome'];     
         $hash = $linha['senha'];
+        
 
         if(password_verify($senha, $linha['senha'])){
             $_SESSION['email'] = $email;

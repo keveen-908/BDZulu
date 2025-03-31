@@ -7,32 +7,60 @@
             $id = $_REQUEST['id'];
             // Diretório de uploads
             $nome_operacao = $_POST['operacao'];
-            $dirOperacao = "./uploads".DIRECTORY_SEPARATOR. preg_replace("/[^a-zA-Z0-9_]/", "_", $nome_operacao) . "/"; // Substitui espaços por "_"
+            $dirOperacao = "../uploads"."/". preg_replace("/[^a-zA-Z0-9_]/", "_", $nome_operacao) . "/"; // Substitui espaços por "_"
             if (!is_dir($dirOperacao)) {
                 mkdir($dirOperacao, 0777, true); // Criar a pasta, se não existir
             }
+          
             
-            
-            //funcao o para processar e substituir arquivos
             function processarArquivo($input_name, $dir, $arquivo_antigo) {
+                // Verifica se houve erro no upload do arquivo
+                if ($_FILES[$input_name]['error'] !== UPLOAD_ERR_OK) {
+                    echo "Erro no upload do arquivo ($input_name): " . $_FILES[$input_name]['error'] . "<br>";
+                    return $arquivo_antigo; // Mantém o arquivo antigo para evitar perda de dados
+                }
+   
+                // Garante que a pasta de destino existe
+                // SE NAO EXISTIR DIR ELE CRIA UM NOME CAMINHO SETDO NA VARIAVEL $DIR
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0777, true);
+                }
+                
+                // SE NAO FOR VAZIO ELE CRIA UM NOVO NOME 
                 if (!empty($_FILES[$input_name]['name'])) {
                     $extensao = pathinfo($_FILES[$input_name]['name'], PATHINFO_EXTENSION);
                     $novoNome = uniqid() . "." . $extensao;
+                    $caminhoCompleto = $dir . $novoNome; // Caminho completo do arquivo
             
-                    if (move_uploaded_file($_FILES[$input_name]['tmp_name'], $dir . $novoNome)) {
-                        if (!empty($arquivo_antigo)) {
-                            unlink($dir . $arquivo_antigo);
+                    // Verifica se o arquivo temporário existe antes de mover
+                    if (!file_exists($_FILES[$input_name]['tmp_name'])) {
+                        echo "Erro: Arquivo temporário não encontrado para $input_name!<br>";
+                        return $arquivo_antigo;
+                    }
+            
+                    // Tenta mover o arquivo
+                    if (move_uploaded_file($_FILES[$input_name]['tmp_name'], $caminhoCompleto)) {
+                        echo "Arquivo movido com sucesso para: $caminhoCompleto<br>";
+            
+                        // Remove o antigo se o novo foi salvo com sucesso
+                        if (!empty($arquivo_antigo) && file_exists($dir . "/" . $arquivo_antigo)) {
+                            unlink($dir . "/" . $arquivo_antigo);
                         }
                         return $novoNome;
+                    } else {
+                        echo "Erro ao mover o arquivo para $caminhoCompleto<br>";
                     }
+                } else {
+                    echo "Nenhum arquivo foi enviado para $input_name.<br>";
                 }
+            
                 return $arquivo_antigo;
             }
 
             // Processar relatórios e arquivos diversos
-            $relatorioComando = processarArquivo('relatorioComando', $dirOperacao, $_POST['relatorio_comando_antigo']);
-            $relatorioFinal = processarArquivo('relatorioFinal', $dirOperacao, $_POST['relatorio_final_antigo']);
-            $arquivoDiverso = processarArquivo('outrosDocumentos', $dirOperacao, $_POST['arquivo_diverso_antigo']);
+            $relatorioMissao = processarArquivo('relatorioComando', $dirOperacao, $_POST['relatorio_comando_antigo'] ?? '');
+            $relatorioFinal = processarArquivo('relatorioFinal', $dirOperacao, $_POST['relatorio_final_antigo'] ?? '');
+            $arquivoDiverso = processarArquivo('outrosDocumentos', $dirOperacao, $_POST['arquivo_diverso_antigo'] ?? '');
 
             // Processar imagens
             $imagens_anteriores = json_decode($_POST['imagens_anteriores'], true);
@@ -60,14 +88,15 @@
             $fotos_json = json_encode($novas_imagens);
 
             /* insere os dados dos anexos */
+          
             $sql = "UPDATE anexos 
-            SET relatorioFinal = '$relatorioFinal', 
-                relatorioComando = '$relatorioComando', 
-                fotos = '$fotos_json', 
-                outrosDocumentos = '$arquivoDiverso' 
-            WHERE aid = $id";
+                SET relatorioFinal = '$relatorioFinal', 
+                    relatorioComando = '$relatorioMissao', 
+                    fotos = '$fotos_json', 
+                    outrosDocumentos = '$arquivoDiverso' 
+                WHERE aid = $id";
+
             $resAnexos = $mysqli->query($sql) or die("Erro ao atualizar anexos: " . $mysqli->error);
-            
 
             $nomeOp = $_POST['operacao'];
             $missao = $_POST['missao'];

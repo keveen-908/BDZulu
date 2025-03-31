@@ -32,10 +32,11 @@
                                     ?>
                                 </h4>
                             <div>
+            
                                 <?php if($erro == "Admin"){ ?>
                                 <span class="f-left m-t-10 text-muted estilo">
-                                    <i class="ti-layout-tab"></i>>
-                                    <a href="index.php?p=opRegistradas">Operações Registradas</a>
+                                    <i class="text-c-blue f-16 ti-layout-tab"></i>
+                                    <a href="index.php?p=opRegistradas"> Operações Registradas</a>
                                 </span>
                                 <?php } ?>
 
@@ -64,7 +65,7 @@
                                 </h4>
                             <div>
                                 <span class="f-left m-t-10 text-muted">
-                                    <i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Cadastrados
+                                    <i class="text-c-pink f-16 icofont icofont-user m-r-10"></i>Total de Usuarios Cadastrados
                                 </span>
                             </div>
                         </div>
@@ -92,7 +93,7 @@
                             <div>
                                 <?php if($erro == "Admin"){ ?>
                                 <span class="f-left m-t-10 text-muted estilo">
-                                    <i class="ti-user"></i>
+                                    <i class="text-c-green f-16 ti-user"></i>
                                     <a href="index.php?p=acessos">Todos Acessos</a>
                                 </span>
                                 <?php } ?>
@@ -111,10 +112,10 @@
                             </svg>
     
                             <span class="text-c-yellow f-w-600">Diretrizes</span>
-                            <h4>1</h4>
+                            <h4>#</h4>
                             <div>
                                 <span class="f-left m-t-10 text-muted">
-                                    <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Enviadas
+                                    <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Indisponivel 
                                 </span>
                             </div>
                         </div>
