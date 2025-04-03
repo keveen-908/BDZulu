@@ -340,7 +340,7 @@ $mysqli->close();
 
                 <div class="form-group">
                   <label for="operacao">Nome da Operação:</label>
-                  <input id="input" type="text" name="operacao" id="operacao" maxlength="50" id="descricao" oninput="limitarCaracteres(this,50)" placeholder="Operação" required>
+                  <input id="input" type="text" name="operacao" id="operacao" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)" placeholder="Operação" required>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -380,7 +380,7 @@ $mysqli->close();
 
                 <div class="form-group">
                   <label for="missao">Missão:</label>
-                  <input id="input" type="text" name="missao" placeholder="Missão" id="missao" maxlength="200" oninput="limitarCaracteres(this,200)" required>
+                  <input id="input" type="text" name="missao" placeholder="Missão" id="missao" maxlength="500" oninput="limitarCaracteres(this,500)" required>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -440,7 +440,7 @@ $mysqli->close();
             <div id="efetivo" class="tab-content">
                 <div class="form-group">
                   <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
-                  <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" maxlength="100" oninput="limitarCaracteres(this,100)"required>
+                  <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" maxlength="500" oninput="limitarCaracteres(this,500)"required>
 
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
@@ -506,7 +506,7 @@ $mysqli->close();
 
                 <div class=form-group>
                   <label for="">Descreva ação ou apoio:</label>
-                  <input id="input" type="text" name="desTransporte"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                  <input id="input" type="text" name="desTransporte"  id="" placeholder="" maxlength="500" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -530,7 +530,7 @@ $mysqli->close();
 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManutencao" id=""  placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desManutencao" id=""  placeholder="" maxlength="500" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -553,7 +553,7 @@ $mysqli->close();
 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desSuprimento"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desSuprimento"  id="" placeholder="" maxlength="500" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -576,7 +576,7 @@ $mysqli->close();
                 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desAviacao"  id="" placeholder="" maxlength="100" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desAviacao"  id="" placeholder="" maxlength="500" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -604,7 +604,7 @@ $mysqli->close();
             <div id="outras" class="tab-content">
                 <div class="form-group">
                   <label for="op"> Síntese da Operação:</label>
-                  <textarea name="sintase" id="input" required rows="2" maxlength="200" oninput="limitarCaracteres(this,200)"></textarea>
+                  <textarea name="sintase" id="input" required rows="2" maxlength="5000" oninput="limitarCaracteres(this,5000)"></textarea>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -613,7 +613,7 @@ $mysqli->close();
                 
                 <div class="form-group">
                   <label for="informacoes"> Outras Informações:</label>
-                  <textarea name="outrasInfos" id="input" rows="4" maxlength="200" oninput="limitarCaracteres(this,200)"></textarea>
+                  <textarea name="outrasInfos" id="input" rows="4" maxlength="5000" oninput="limitarCaracteres(this,5000)"></textarea>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>

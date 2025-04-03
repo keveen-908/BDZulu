@@ -164,7 +164,7 @@
 
                 <div class="form-group">
                   <label for="operacao">Nome da Operação:</label>
-                  <input id="input" type="text" value="<?php print $row->operacao;?>" name="operacao" id="operacao" maxlength="50" id="descricao" oninput="limitarCaracteres(this,50)" placeholder="Operação" required>
+                  <input id="input" type="text" value="<?php print $row->operacao;?>" name="operacao" id="operacao" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)" placeholder="Operação" required>
 
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
@@ -205,7 +205,7 @@
                 
                 <div class="form-group">
                 <label for="missao">Missão:</label>
-                <input id="input" type="text" name="missao" value="<?php print $row->missao;?>" placeholder="Missão" id="missao" requiredmaxlength="200" id="descricao" oninput="limitarCaracteres(this,200)">
+                <input id="input" type="text" name="missao" value="<?php print $row->missao;?>" placeholder="Missão" id="missao" requiredmaxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -270,7 +270,7 @@
 
                 <div class="form-group">
                 <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
-                <input id="input" type="text" name="participantes" value="<?php print $rowEfetivo->participantes;?>" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="participantes" value="<?php print $rowEfetivo->participantes;?>" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" required maxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -334,7 +334,7 @@
 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte"maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desTransporte" value="<?php print @$rowTipos->desTransporte;?>" id="" placeholder="Transporte"maxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -357,7 +357,7 @@
                 </select>
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desManutencao" id="" value="<?php print @$desManutencao;?>" placeholder="Manuntenção" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desManutencao" id="" value="<?php print @$desManutencao;?>" placeholder="Manuntenção" maxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -381,7 +381,7 @@
 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$desSuprimento;?>" placeholder="Não foi preenchido" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desSuprimento"  id="" value="<?php print @$desSuprimento;?>" placeholder="Não foi preenchido" maxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -405,7 +405,7 @@
 
                 <div class="form-group">
                 <label for="">Descreva ação ou apoio:</label>
-                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$desAviacao;?>" placeholder="Aviação" maxlength="100" id="descricao" oninput="limitarCaracteres(this,100)">
+                <input id="input" type="text" name="desAviacao"  id="" value="<?php print @$desAviacao;?>" placeholder="Aviação" maxlength="500" id="descricao" oninput="limitarCaracteres(this,500)">
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -434,7 +434,7 @@
             <div id="outras" class="tab-content ">
             <div class="form-group">
                   <label for="op"> Síntese da Operação:</label>
-                  <textarea name="sintase" id="input" required rows="2" maxlength="200" oninput="limitarCaracteres(this,200)"><?php print $sintaseOp?></textarea>
+                  <textarea name="sintase" id="input" required rows="2" maxlength="5000" oninput="limitarCaracteres(this,5000)"><?php print $sintaseOp?></textarea>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
@@ -443,7 +443,7 @@
                 
                 <div class="form-group">
                   <label for="informacoes"> Outras Informações:</label>
-                  <textarea name="outrasInfos" id="input" rows="4" maxlength="200" oninput="limitarCaracteres(this,200)"><?php print $outrasinfos?></textarea>
+                  <textarea name="outrasInfos" id="input" rows="4" maxlength="5000" oninput="limitarCaracteres(this,5000)"><?php print $outrasinfos?></textarea>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso"></p>
                 </div>
