@@ -451,8 +451,8 @@ var nav = $('.fixed-button');
                                         <div>
                                             <?php if($erro == "Admin"){ ?>
                                             <span class="f-left m-t-10 text-muted estilo">
-                                                <i class="ti-layout-tab"></i>>
-                                                <a href="index.php?p=opRegistradas">Operações Registradas</a>
+                                              <i class="text-c-blue f-16 ti-layout-tab"></i>
+                                              <a href="index.php?p=opRegistradas"> Operações Registradas</a>
                                             </span>
                                             <?php } ?>
 

@@ -1,59 +1,63 @@
 <?php
-    
-    include_once('../acoes/config.php');
-    $id = $_REQUEST['id'];
-
- 
-    //pesquisa anexos
-    $sql = "SELECT * FROM anexos WHERE aid = " . $id;
-    $res = $mysqli->query($sql);
-    $rowAnexos = $res->fetch_object();
-    //pesquisa operacao
-    $sql = "SELECT * FROM operacao WHERE opid = " . $id;
-    $res = $mysqli->query($sql);
-    $row = $res->fetch_object();
-    $operacao = $row->operacao;
-    //pesquisa efetivo
-    $sql = "SELECT * FROM efetivo WHERE eid = " . $id;
-    $res = $mysqli->query($sql);
-    $rowEfetivo = $res->fetch_object();
-    //pesquisa tipos
-    $sql = "SELECT * FROM tipoOp WHERE tid = " . $id;
-    $res = $mysqli->query($sql);
-    $rowTipos = $res->fetch_object();
-    //pesquisa recursos
-    $sql = "SELECT * FROM recursos WHERE rid = " . $id;
-    $res = $mysqli->query($sql);
-    $rowRecursos = $res->fetch_object();
-    //pesquisa outras   
-    $sql = "SELECT * FROM infos WHERE iid = " . $id;
-    $res = $mysqli->query($sql);
-    $rowInfo = $res->fetch_object();
-    //pesquisa anexos
-    $sql = "SELECT * FROM anexos WHERE aid = $id";
-    $resultAnexo = $mysqli->query($sql);
-    $anexo = $resultAnexo->fetch_assoc();
-    
-    $relatorioFinal = $anexo['relatorioFinal'];
-    $relatorioComando = $anexo['relatorioComando'];
-    $outrosDocumentos = $anexo['outrosDocumentos'];
-    
-    $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
-    
-    $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
-        
-    $outrasinfos = $sintaseOp = $manutencao = $desManutencao = $desAviacao = $desSuprimentos = null;
-    
-    $sintaseOp = $rowInfo->sintaseOp;
-    $outrasinfos = $rowInfo->outrasInfos;
-    
-    $manutencao=$rowTipos->manutencao;
-    $desManutencao=$rowTipos->desManutencao;
-    $desAviacao=$rowTipos->desAviacao;
-    $desSuprimento=$rowTipos->desSuprimento;
-
    
+   include_once('../acoes/config.php');
+   $id = $_REQUEST['id'];
+
  
+   //pesquisa anexos
+   $sql = "SELECT * FROM anexos WHERE aid = " . $id;
+   $res = $mysqli->query($sql);
+   $rowAnexos = $res->fetch_object();
+   //pesquisa operacao
+   $sql = "SELECT * FROM operacao WHERE opid = " . $id;
+   $res = $mysqli->query($sql);
+   $row = $res->fetch_object();
+   $operacao = $row->operacao;
+   //pesquisa efetivo
+   $sql = "SELECT * FROM efetivo WHERE eid = " . $id;
+   $res = $mysqli->query($sql);
+   $rowEfetivo = $res->fetch_object();
+   //pesquisa tipos
+   $sql = "SELECT * FROM tipoOp WHERE tid = " . $id;
+   $res = $mysqli->query($sql);
+   $rowTipos = $res->fetch_object();
+   //pesquisa recursos
+   $sql = "SELECT * FROM recursos WHERE rid = " . $id;
+   $res = $mysqli->query($sql);
+   $rowRecursos = $res->fetch_object();
+   //pesquisa outras   
+   $sql = "SELECT * FROM infos WHERE iid = " . $id;
+   $res = $mysqli->query($sql);
+   $rowInfo = $res->fetch_object();
+   //pesquisa anexos
+   $sql = "SELECT * FROM anexos WHERE aid = $id";
+   $resultAnexo = $mysqli->query($sql);
+   $anexo = $resultAnexo->fetch_assoc();
+   
+   $relatorioFinal = $anexo['relatorioFinal'];
+   $relatorioComando = $anexo['relatorioComando'];
+   $outrosDocumentos = $anexo['outrosDocumentos'];
+   
+   $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
+   
+   $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
+       
+   $outrasinfos = $sintaseOp = $manutencao = $desManutencao = $desAviacao = $desSuprimentos = null;
+   
+   $sintaseOp = $rowInfo->sintaseOp;
+   $outrasinfos = $rowInfo->outrasInfos;
+   
+   $manutencao=$rowTipos->manutencao;
+   $desManutencao=$rowTipos->desManutencao;
+   $desAviacao=$rowTipos->desAviacao;
+   $desSuprimento=$rowTipos->desSuprimento;
+
+  
+
+
+  
+
+$mysqli->close();
 
 ?>
 <!DOCTYPE html>
@@ -62,8 +66,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <title>Inserção</title>
     <style>
         body {
@@ -138,11 +140,39 @@
         .submit-btn:hover {
             background-color: #218838;
         }
+  
+       /* Estilizando o input */
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        /* Estilizando o contador */
+        .contador {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Estilizando a mensagem de aviso */
+        .aviso {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+            display: none;
+        }
     </style>
 </head>             
 <body>
     
-    <div class="container table-sm">
+<div class="container table-sm">
         <h1 style="text-align:center;">Editar Operação</h1>
 
         <form action="../acoes/acao.php" method="POST" enctype="multipart/form-data">
@@ -461,8 +491,8 @@
                     <?php endif; ?>
                 </label>
                 <br>
-                <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
-                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
+                <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 50MB):</label>
+                <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 50)">
                 <hr>
 
                 <!-- Relatório Comando Logístico -->
@@ -474,8 +504,8 @@
                     <?php endif; ?>
                 </label>
                 <br>
-                <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
-                <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
+                <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 50MB):</label>
+                <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" onchange="validarArquivo('relatorioComando', ['pdf'], 1, 50)">
                 <hr>
 
                 <!-- Fotos -->
@@ -496,14 +526,14 @@
 
                 <!-- Outros Documentos -->
                 <hr>
-                <label><h5><b>Anexar Documento (PDF, DOC, DOCX, ZIP - máx. 10MB):</b></h5></label>
+                <label><h5><b>Anexar Documento:</b></h5></label>
                 <?php if (!empty($outrosDocumentos)): ?>
                     <p>Arquivo Atual: <a href="<?php echo $dirOperacao . $outrosDocumentos ?>" target="_blank">📄 Baixar Documento</a></p>
                     <input type="hidden" name="arquivo_diverso_antigo" value="<?= !empty($outrosDocumentos) ? $outrosDocumentos : '' ?>">
                 <?php endif; ?>
                 <br>
-                <label for="outrosDocs">Anexar Documento (PDF, DOC, DOCX, ZIP - máx. 10MB):</label>
-                <input class="input" type="file" name="outrosDocumentos" id="outrosDocs" onchange="validarArquivo('outrosDocs', [], 1, 10)">
+                <label for="outrosDocs">Anexar Documento (PDF, DOC, DOCX, ZIP - máx. 50MB):</label>
+                <input class="input" type="file" name="outrosDocumentos" id="outrosDocs" onchange="validarArquivo('outrosDocs', [], 1, 50)">
             </div>
 
             <!-- Botão de Envio -->

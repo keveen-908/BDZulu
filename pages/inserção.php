@@ -623,21 +623,21 @@ $mysqli->close();
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
 
-              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 5MB):</label>
+              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 50MB):</label>
               <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" 
-                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 5)">
+                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 50)">
 
-              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 5MB):</label>
+              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 50MB):</label>
               <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" 
-                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 5)">
+                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 50)">
 
               <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
               <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple 
                     onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
 
-              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 10MB):</label>
+              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 50MB):</label>
               <input class="input" type="file" name="diversos" id="outrosDocs" 
-                    onchange="validarArquivo('outrosDocs', [], 1, 10)">
+                    onchange="validarArquivo('outrosDocs', [], 1, 50)">
 
             </div>
 

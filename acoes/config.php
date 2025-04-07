@@ -8,10 +8,11 @@
 
     $host = "localhost";
     $user = "root";
-    $pass = "";
+    $pass = "@160l0nc3t";
     $db = "bdcolog";
 
     $mysqli = mysqli_connect($host,$user, $pass,$db);
+    $mysqli->set_charset("utf8mb4");
     if( $mysqli->connect_errno){
         die("Falha na conexão");
     }
