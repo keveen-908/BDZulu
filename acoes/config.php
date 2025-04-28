@@ -8,7 +8,7 @@
 
     $host = "localhost";
     $user = "root";
-    $pass = "@160l0nc3t";
+    $pass = "";
     $db = "bdcolog";
 
     $mysqli = mysqli_connect($host,$user, $pass,$db);

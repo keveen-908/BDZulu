@@ -68,7 +68,7 @@
         </div>
     <!-- inicio da tabela --> 
     <div class="col-md">
-      <div class="card widget-card-9 table-bordered">
+      <div id="tabela" class="card widget-card-9 table-bordered">
         
        
 
@@ -77,15 +77,16 @@
         <table class="table table-hover table-bordered" >
             <thead>
                 <tr>
-                  <th style="width: 100px" >Operação</th>
+                  <th style="width: 120px" >Operação</th>
                   <th style="width: 120px">Missão</th>
                   <th style="width: 100px">Estado</th>
-                  <th style="width: 200px">Comando Militar de Área</th>
-                  <th style="width: 120px">Região Militar</th>
-                  <th style="width: 180px">Comando da Operação</th>
-                  <th style="width: 150px">Comando Apoiado</th>
+                  <th style="width: 200px">CMA</th>
+                  <th style="width: 120px">RM</th>
+                  <th style="width: 180px">Comando da Op.</th>
+                  <th style="width: 150px">Comando Ap.</th>
                   <th style="width: 100px">Inicio</th>
                   <th style="width: 100px">Fim</th> 
+                  <th >Status</th>
                   <th >Açoes</th>
                 </tr>
             </thead>
@@ -93,7 +94,7 @@
 
               <?php
               $pesquisa = $mysqli->real_escape_string($nomeUsuario);
-              $sql_code = "SELECT * FROM operacao WHERE operador LIKE '%$pesquisa%' ";
+              $sql_code = "SELECT * FROM operacao WHERE operador LIKE '%$pesquisa%' ORDER BY opid DESC;";
               $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error);  
               if ($sql_query->num_rows == 0) {
               ?>
@@ -103,6 +104,7 @@
               <?php
               } else {
                 while($dados = $sql_query->fetch_assoc()) {
+                    $status = $dados['status'];
               ?>
                 <tr>
                   <td class="col-limitada"><?php echo $dados['operacao']; ?></th>
@@ -116,7 +118,16 @@
                     echo "<td>".date_format(date_create_from_format('Y-m-d', $dados["inicioOp"]), 'd/m/Y')."</td>"; 
                     echo "<td>".date_format(date_create_from_format('Y-m-d', $dados["fimOp"]), 'd/m/Y')."</td>";
                   ?>
-                
+
+                  <td class="col-limitada">
+                    <?php if($status == "incompleto"){
+                        echo "<span class='badge badge-danger'>".$status."</span>";
+                    }else{
+                        echo "<span class='badge badge-success'>".$status."</span>";
+                    }
+                    ?>
+                  </td> 
+
                   <td class="btn-sm text-center">
                       <a href="#" onclick="Edicao(<?php echo $dados['opid']; ?>)" class='text-success mx-3 ' title="Editar">
                           <i class="bi bi-pencil-square fs-12"></i>
@@ -139,24 +150,34 @@
     </div>
 
       <!--FAZ BUSCA NAS PESQUISAS -->
-  <script>
-      const inputBusca = document.getElementById('input-busca');
-      const tabelaOperacoes = document.getElementById('tabela-operacoes');
+    <script>
+        const inputBusca = document.getElementById('input-busca');
+        const tabelaOperacoes = document.getElementById('tabela-operacoes');
 
-      inputBusca.addEventListener('keyup', () => {
-          let valorBusca = inputBusca.value.toLowerCase();
-          let linhas = tabelaOperacoes.getElementsByTagName('tr');
+        inputBusca.addEventListener('keyup', () => {
+            let valorBusca = inputBusca.value.toLowerCase();
+            let linhas = tabelaOperacoes.getElementsByTagName('tr');
 
-          for (let linha of linhas) {
-              let conteudoLinha = linha.innerText.toLowerCase();
+            for (let linha of linhas) {
+                let conteudoLinha = linha.innerText.toLowerCase();
 
-              if (conteudoLinha.includes(valorBusca)) {
-                  linha.style.display = ''; // mostra
-              } else {
-                  linha.style.display = 'none'; // esconde
-              }
-          }
-      });
+                if (conteudoLinha.includes(valorBusca)) {
+                    linha.style.display = ''; // mostra
+                } else {
+                    linha.style.display = 'none'; // esconde
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const options = {
+        valueNames: ['name', 'mission', 'state'],
+        page: 5,
+        pagination: true
+        };
+
+        const userList = new List('tabela', options);
   </script>
 
   <script>

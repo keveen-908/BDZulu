@@ -120,21 +120,6 @@ if ($result->num_rows > 0) {
 
             <!-- Seção 1: Dados da Operação -->
             <div id="dados" class="tab-content active">
-                
-            <label for="estado">Posto / Graduação:</label>
-            <select name="postoGd" id="postoGd">
-                <?php
-                // Exemplo de valores para o select (gerados dinamicamente)
-                $opcoes = ["GEN EX", "GEN DIV", "GEN BRI", "CEL", "TC", "MAJ", "CAP", "1°TEN", "2°TEN", "ASP", "ST", "1°SGT", "2°SGT", "3°SGT", "CB", "SD"];
-
-                // Preencher as opções
-                foreach ($opcoes as $opcao) {
-                    // Verificar se a opção atual é a que veio do banco de dados
-                    $selected = ($opcao == $selectedValue) ? 'selected' : '';
-                    echo "<option value='$opcao' $selected>$opcao</option>";
-                }
-                ?>
-            </select>
 
                 <label for="name">Nome:</label>
                 <input type="text" name="nome" value="<?php echo $nomeUsuario; ?>" id="name" required>

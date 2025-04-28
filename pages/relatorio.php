@@ -102,9 +102,9 @@
     
     $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
     
-    var_dump($imagens);
+    
     $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
-    printf($dirOperacao);
+    
     
 
     ?>

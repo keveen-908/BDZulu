@@ -419,6 +419,7 @@ include("acoes/config.php");
                                         <option value="Preparo">Preparo</option>
                                         <option value="Emprego">Emprego</option>
                                         <option value="Transporte">Transporte</option>
+                                        <option value="Missao_de_Paz">Missao de Paz</option>
                                     </select>
                                 </div>
                             </div>

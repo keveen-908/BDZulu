@@ -1,7 +1,7 @@
 <?php
     include "config.php";
 
-    $conn = new PDO ("mysql:dbname=bdcolog;host=localhost", "root", "@160l0nc3t");
+    $conn = new PDO ("mysql:dbname=bdcolog;host=localhost", "root", "");
  
     //SE ADMINISTRADOR EXISTIR
     if (isset($_POST['administrador'])) {
@@ -99,6 +99,24 @@
 
         $uid = $_POST["uid"];
         $adm = "Transporte";
+
+        $sql = "UPDATE usuarios SET funcao=:ADM  WHERE uid = :ID";
+
+        $stmt = $conn->prepare ($sql);
+
+        $stmt -> bindParam(":ADM", $adm);
+
+        $stmt -> bindParam(":ID", $uid);
+
+        $stmt->execute();
+
+        header ("location: /index.php?p=admin");
+
+    }
+    if (isset($_POST['Missao_de_Paz'])) {
+
+        $uid = $_POST["uid"];
+        $adm = "Missao_de_Paz";
 
         $sql = "UPDATE usuarios SET funcao=:ADM  WHERE uid = :ID";
 

@@ -142,6 +142,13 @@ try {
 
     $submit= $_POST['submit'];
 
+    // verifica se há post vazio
+
+    $status = "completo";
+
+    if(empty($operacao) || empty($estado) || empty($missao) || empty($cma) || empty($rm) || empty($comandoOp) || empty($comandoApoio) || empty($inicioOp) || empty($fimOp) || empty($participantes) || empty($tipoOp) || empty($acaoOuApoio) || empty($transporte) || empty($manutencao) || empty($suprimento) || empty($aviacao) || empty($desTransporte) || empty($desManutencao) || empty($desSuprimento) || empty($desAviacao)) {
+      $status = "incompleto";
+    } 
 
 
     if ($submit) {
@@ -149,7 +156,7 @@ try {
       $usuario = $nomeUsuario;
       /* insere os dados das operacoes */
 
-      $sql = "INSERT INTO operacao (operador, operacao,estado, missao, cma, rm, comandoOp, comandoApoio, inicioOp, fimOp, tipoop) VALUES ('$usuario', '$operacao', '$estado', '$missao','$cma', '$rm', '$comandoOp', '$comandoApoio', '$inicioOp', '$fimOp', '$tipoOp')";
+      $sql = "INSERT INTO operacao (operador, operacao,estado, missao, cma, rm, comandoOp, comandoApoio, inicioOp, fimOp, tipoop, status) VALUES ('$usuario', '$operacao', '$estado', '$missao','$cma', '$rm', '$comandoOp', '$comandoApoio', '$inicioOp', '$fimOp', '$tipoOp', '$status')";
 
       $mysqli->query($sql);
 
@@ -380,13 +387,13 @@ $mysqli->close();
 
                 <div class="form-group">
                   <label for="missao">Missão:</label>
-                  <input id="input" type="text" name="missao" placeholder="Missão" id="missao" maxlength="500" oninput="limitarCaracteres(this,500)" required>
+                  <input id="input" type="text" name="missao" placeholder="Missão" id="missao" maxlength="500" oninput="limitarCaracteres(this,500)" >
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
                   
                 <label for="comando">Comando Militar de Área:</label>
-                <select id="input" id="comando" name="cma" class="" required>
+                <select id="input" id="comando" name="cma" class="" >
                     <option value="">Selecione o Comando Militar de Área</option>
                     <option value="Comando Militar da Amazônia">Comando Militar da Amazônia</option>
                     <option value="Comando Militar do Leste">Comando Militar do Leste</option>
@@ -397,9 +404,10 @@ $mysqli->close();
                     <option value="Comando Militar do Sudeste">Comando Militar do Sudeste</option>
                     <option value="Comando Militar do Sul">Comando Militar do Sul</option>
                 </select>
-              
+                
+                <!--
                 <label for="rm">Região Militar:</label>
-                <select id="input" id="rm" name="rm" class="" required>
+                <select id="input" id="rm" name="rm" class="" >
                     <option value=""> Selecione a Região Militar</option>
                     <option value="1ª região militar">1ª região militar</option>
                     <option value="2ª região militar">2ª região militar</option>
@@ -414,58 +422,66 @@ $mysqli->close();
                     <option value="11ª região militar">11ª região militar</option>
                     <option value="12ª região militar">12ª região militar</option>
                 </select>
+                -->
                 
                 <div class="form-group">
+                  <label for="rm">Região Militar:</label>
+                  <input id="input" type="text" name="rm" placeholder="Região Militar" id="rm" maxlength="150" oninput="limitarCaracteres(this,150)" >
+                  <p class="contador" id="contador"></p>
+                  <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
+                </div>
+
+                <div class="form-group">
                   <label for="comandoOp">Comando da Operação:</label>
-                  <input id="input" type="text" name="comandoOp" placeholder="Comando da Operação" id="comandoOp" maxlength="100" oninput="limitarCaracteres(this,100)" required>
+                  <input id="input" type="text" name="comandoOp" placeholder="Comando da Operação" id="comandoOp" maxlength="100" oninput="limitarCaracteres(this,100)" >
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
                   
                 <div class="form-group">
                   <label for="OrgApoiada">Organização Apoiada:</label>
-                  <input id="input" type="text" name="comandoApoiado" placeholder="Organização Apoiada" id="OrgApoiada" maxlength="100" oninput="limitarCaracteres(this,100)" required>
+                  <input id="input" type="text" name="comandoApoiado" placeholder="Organização Apoiada" id="OrgApoiada" maxlength="100" oninput="limitarCaracteres(this,100)" >
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
 
                 <label for="inicioOp">Ínicio da operação:</label>
-                <input id="input" type="date" name="inicioOp" id="inicioOp" required>
+                <input id="input" type="date" name="inicioOp" id="inicioOp" >
                 
                 <label for="terminoOp">Término da operação:</label>
-                <input id="input" type="date" name="fimOp" id="terminoOp" required>
+                <input id="input" type="date" name="fimOp" id="terminoOp" >
             </div>
 
             <!-- Seção 2: Efetivo -->
             <div id="efetivo" class="tab-content">
                 <div class="form-group">
                   <label for="efetivoTotal">EB,Outras Forças, Outras Agências, e/ou Outras Organizações:</label>
-                  <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" maxlength="500" oninput="limitarCaracteres(this,500)"required>
+                  <input id="input" type="text" name="participantes" placeholder="EB,Outras Forças, Outras Agências, e/ou Outras Organizações:" id="efetivoTotal" maxlength="500" oninput="limitarCaracteres(this,500)">
 
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
 
                 <label for="efetivoEb">Efetivo Exército Brasileiro:</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesEb" id="efetivoEb" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesEb" id="efetivoEb" >
 
                 <label for="efetivoMa">Efetivo Marinha do Brasil :</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesMb" id="efetivoMa" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesMb" id="efetivoMa" >
                 
                 <label for="efetivoFAB">Efetivo Força Aérea Brasil :</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesFab" id="efetivoFAB" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesFab" id="efetivoFAB" >
                 
                 <label for="efetivoOrgSeg">Efetivo Órgãos de Segurança e Ordenamento Pública:</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesOs" id="efetivoOrgSeg" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesOs" id="efetivoOrgSeg" >
 
                 <label for="efetivoAgencia">Efetivo de outras Agências Governamentais:</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesGov" id="efetivoAgencia" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesGov" id="efetivoAgencia" >
 
                 <label for="efetivoPriv">Efetivo de outras Agências Privadas:</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesPv" id="efetivoPriv" required>
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesPv" id="efetivoPriv" >
 
                 <label for="efetivoNaoGov">Efetivo de Organizações Não-Governamentais:</label>
-                <input id="input" type="number" placeholder="Quantidade:0" name="participantesCv" id="efetivoNaoGov" required>  
+                <input id="input" type="number" placeholder="Quantidade:0" name="participantesCv" id="efetivoNaoGov" >  
             </div>
 
             <!-- Seção 3: Tipos de Operação--> 
@@ -475,7 +491,7 @@ $mysqli->close();
                     <input id="input" id="tipo_operacao" name="tipoOp" value="<?php echo $funcao;?>" disabled >
                 
                 <label for="">Tipo de ação ou apoio:</label>
-                <select id="input" id="" name="acaoOuApoio" class="" required>
+                <select id="input" id="" name="acaoOuApoio" class="" >
                     <option value="">Selecione o tipo de Ação ou Apoio</option>
                     <option value="Logística para Operações de Garantia da Soberania">Logística para Operações de Garantia da Soberania</option>
                     <option value="Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)">Logística de Apoio a Operações Garantia da Lei e da Ordem (GLO)</option>
@@ -587,16 +603,16 @@ $mysqli->close();
             <div id="recursos" class="tab-content">
 
             <label for="recebidos">Recebidos (R$):</label>
-            <input id="input" type="number" id="recebidos" name="recebidos" required placeholder="R$ 0,00">
+            <input id="input" type="number" id="recebidos" name="recebidos"  placeholder="R$ 0,00">
             
             <label for="descentralizados">Descentralizados (R$):</label>
-            <input id="input" type="number" id="descentralizados" name="descentralizados" required placeholder="R$ 0,00">
+            <input id="input" type="number" id="descentralizados" name="descentralizados"  placeholder="R$ 0,00">
             
             <label for="liquidados">Liquidados (R$):</label>
-            <input id="input" type="number" id="liquidados" name="liquidados" required placeholder="R$ 0,00">
+            <input id="input" type="number" id="liquidados" name="liquidados"  placeholder="R$ 0,00">
             
             <label for="devolvolvidos">Devolvolvidos (R$):</label>
-            <input id="input" type="number" id="devolvolvidos" name="devolvidos" required placeholder="R$ 0,00">
+            <input id="input" type="number" id="devolvolvidos" name="devolvidos"  placeholder="R$ 0,00">
 
             </div>
 
@@ -604,7 +620,7 @@ $mysqli->close();
             <div id="outras" class="tab-content">
                 <div class="form-group">
                   <label for="op"> Síntese da Operação:</label>
-                  <textarea name="sintase" id="input" required rows="2" maxlength="5000" oninput="limitarCaracteres(this,5000)"></textarea>
+                  <textarea name="sintase" id="input"  rows="2" maxlength="5000" oninput="limitarCaracteres(this,5000)"></textarea>
                   <p class="contador" id="contador"></p>
                   <p class="aviso" id="aviso">⚠️ Você atingiu o limite máximo de caracteres!</p>
                 </div>
@@ -623,21 +639,21 @@ $mysqli->close();
             <!-- Seção 6: Anexos -->
             <div id="anexos" class="tab-content">
 
-              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 50MB):</label>
+              <label for="relatorioFinal">Relatório Final (Apenas PDF, máx. 100MB):</label>
               <input class="input" type="file" name="relatorioFinal" id="relatorioFinal" accept=".pdf" 
-                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 50)">
+                    onchange="validarArquivo('relatorioFinal', ['pdf'], 1, 100)">
 
-              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 50MB):</label>
+              <label for="relatorioComando">Relatório do Comando Logístico (Apenas PDF, máx. 100MB):</label>
               <input class="input" type="file" name="relatorioComando" id="relatorioComando" accept=".pdf" 
-                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 50)">
+                    onchange="validarArquivo('relatorioComando', ['pdf'], 1, 100)">
 
               <label for="fotos">Anexar fotos (JPG, PNG, GIF - máx. 3MB cada, até 5 arquivos):</label>
               <input class="input" type="file" name="fotos[]" id="fotos" accept="image/*" multiple 
                     onchange="validarArquivo('fotos', ['jpg', 'jpeg', 'png', 'gif'], 5, 3)">
 
-              <label for="outrosDocs">Anexar Documento (Qualquer tipo, máx. 50MB):</label>
-              <input class="input" type="file" name="diversos" id="outrosDocs" 
-                    onchange="validarArquivo('outrosDocs', [], 1, 50)">
+              <label for="outrosDocs">Anexar Documento (PDF, máx. 100MB):</label>
+              <input class="input" type="file" name="diversos" accept=".pdf" id="outrosDocs" 
+                    onchange="validarArquivo('outrosDocs', ['pdf'], 1, 100)">
 
             </div>
 

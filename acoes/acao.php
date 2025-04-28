@@ -136,6 +136,10 @@
             $outrasInfos = $_POST['outrasInfos'];
             $sintaseOp = $_POST['sintase'];
 
+            $status = "completo";
+            if(empty($nomeOp) || empty($estado) || empty($missao) || empty($cma) || empty($rm) || empty($comandoOp) || empty($comandoApoio) || empty($inicioOp) || empty($fimOp) || empty($efetivo) || empty($acao_apoio) || empty($transporte) || empty($manuntecao) || empty($suprimento) || empty($aviacao) || empty($desTransporte) || empty($desManuntencao) || empty($desSuprimento) || empty($desAviacao)) {
+            $status = "incompleto";
+            } 
 
             $sql = "UPDATE operacao SET 
             operacao = '{$nomeOp}',
@@ -146,7 +150,8 @@
             comandoOp = '{$comandoOp}',
             comandoApoio = '{$comandoApoio}',
             inicioOp = '{$inicioOp}',
-            fimOp = '{$fimOp}'
+            fimOp = '{$fimOp}',
+            `status` = '{$status}'
             WHERE opid = {$_REQUEST['id']}";
 
             $resOp = $mysqli->query($sql) or die($mysqli->error);

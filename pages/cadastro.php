@@ -145,12 +145,13 @@
                     <option value="Transporte">Transporte</option>
                     <option value="Emprego">Emprego</option>
                     <option value="Preparo">Preparo</option>
+                    <option value="Missao_de_Paz">Missão de Paz</option>
                 </select>
 
                 <label for="tipoUsuario">Tipo de usuário:</label>
                 <select id="tipoUsuario" name="tipoUsuario" class="">
                     <option value="">Selecione o Tipo de Usuário </option>
-                    <option value="">Usuário</option>
+                    <option value="Usuario">Usuário</option>
                     <option value="Gerente">Gerente</option>
                     <option value="Admin">Administrador</option>
                 </select>       

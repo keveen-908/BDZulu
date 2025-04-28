@@ -112,7 +112,8 @@
                             </svg>
     
                             <span class="text-c-yellow f-w-600">Diretrizes</span>
-                            <h4>#</h4>
+                            <!--<h4>#</h4>-->
+                            <h5>Em Desenvolvimento</h5>
                             <div>
                                 <span class="f-left m-t-10 text-muted">
                                     <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Indisponivel 
@@ -122,8 +123,30 @@
                     </div>
                 </div>                                                                                                 
             </div>
-        </div>
-    
+
+        </div>  <!-- Main-body start -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- Page-header start -->
+                            <div class="page-header card">
+                                <div class="row align-items-end">
+                                    <div class="col-lg-8">
+                                        <div class="page-header-title">
+                                            
+                                            <i class="ti-pie-chart bg-c-pink"></i>
+                                            <div class="d-inline">
+                                                <h4>Sessão de Orçamento</h4>
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
+                            <iframe width="100%" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiOThmMTk3YzAtZTdmNy00MDZlLTg1ZDItZjRmM2Y1NTQ4ZDcyIiwidCI6ImFlM2EyYjU1LWU0N2EtNGU0Yi1hOWFlLTQzMmIzMWIwMDNkNCJ9" frameborder="0" allowFullScreen="true"></iframe>
+                        </div>
+                    </div>
+       
+
         <div id="styleSelector">
     
         </div>

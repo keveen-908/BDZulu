@@ -540,15 +540,16 @@ var nav = $('.fixed-button');
   <table class="table table-hover table-bordered" >
       <thead>
           <tr>
-          <th style="width: 100px" >Operação</th>
+          <th style="width: 150px" >Operação</th>
             <th style="width: 120px">Missão</th>
             <th style="width: 100px">Estado</th>
-            <th style="width: 200px">Comando Militar de Área</th>
-            <th style="width: 120px">Região Militar</th>
-            <th style="width: 150px">Comando da Operação</th>
+            <th style="width: 200px">CMA</th>
+            <th style="width: 120px">RM</th>
+            <th style="width: 150px">Comando da Op</th>
             <th style="width: 120px">Comando Apoiado</th>
             <th style="width: 100px">Inicio da Operação</th>
             <th style="width: 100px">Fim da Operação</th> 
+            <th >Status</th>
             <th >Açoes</th>
           </tr>
       </thead>
@@ -595,6 +596,7 @@ var nav = $('.fixed-button');
                         if(strlen($missao) > 10){
                             $missao = substr($missao, 0, 10)."...";
                         }
+                        $status = $dados['status'];
                         echo "<tr>";
                         echo "<td class='col-limitada'>".$dados['operacao']."</td>";
                         echo "<td class='col-limitada'>".$missao."</td>";
@@ -606,13 +608,25 @@ var nav = $('.fixed-button');
                         echo "<td class='col-limitada'>".date_format(date_create_from_format('Y-m-d', $dados["inicioOp"]), 'd/m/Y')."</td>"; 
                         echo "<td class='col-limitada'>".date_format(date_create_from_format('Y-m-d', $dados["fimOp"]), 'd/m/Y')."</td>";
                     ?>    
+                        <td class="col-limitada">
+                            <?php if($status == "incompleto"){
+                                echo "<span class='badge badge-danger'>".$status."</span>";
+                            }else{
+                                echo "<span class='badge badge-success'>".$status."</span>";
+                            }
+                            ?>
+                        </td>   
+
                         <td class="btn-sm text-center">
-                            <a href="#" onclick="Edicao(<?php echo $dados['opid']; ?>)" class='text-success mx-3 ' title="Editar">
-                                <i class="bi bi-pencil-square fs-12"></i>
-                            </a>
-                            <a href="#" onclick="if(confirm('Tem certeza que deseja excluir?')) { Excluir(<?php echo $dados['opid']; ?>); } return false;" class='text-danger mx-3' title="Excluir">
-                                <i class="bi bi-trash fs-12"></i>
-                            </a>
+                            <?php if($erro == "Admin" ){
+                            ?>
+                                <a href="#" onclick="Edicao(<?php echo $dados['opid']; ?>)" class='text-success mx-3 ' title="Editar">
+                                    <i class="bi bi-pencil-square fs-12"></i>
+                                </a>
+                                <a href="#" onclick="if(confirm('Tem certeza que deseja excluir?')) { Excluir(<?php echo $dados['opid']; ?>); } return false;" class='text-danger mx-3' title="Excluir">
+                                    <i class="bi bi-trash fs-12"></i>
+                                </a>
+                            <?php } ?>
                             <a href="#" onclick="Expandir(<?php echo $dados['opid']; ?>)" class='text-primary mx-3' title="Expandir">
                                 <i class="bi bi-arrows-fullscreen fs-12"></i>
                             </a>
