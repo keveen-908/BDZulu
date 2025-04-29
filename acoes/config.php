@@ -1,5 +1,18 @@
 <?php 
 
+    // Aumenta o tempo de vida da sessão no servidor (em segundos)
+    ini_set('session.gc_maxlifetime', 3600); // 1 hora
+
+    // Configura o tempo de vida do cookie da sessão no navegador
+    session_set_cookie_params([
+        'lifetime' => 3600, // 1 hora
+        'path' => '/',
+        'secure' => false, // use true se o site estiver em HTTPS
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
+    // Inicia a sessão
     session_start();
     
     date_default_timezone_set('America/Sao_Paulo');
@@ -32,11 +45,12 @@
 
     // verificacao de cargo de adm
 
-    $sql = "SELECT * FROM usuarios WHERE email = '$email' and adm = 'Administrador' or adm = 'Gerente'";
+    $sql = "SELECT * FROM usuarios WHERE email = '$email' and adm = 'Admin' or adm = 'Gerente'";
 
     $result = $mysqli -> query($sql);
+    
 
-    if (mysqli_num_rows($result) < 1) {
+    if (mysqli_num_rows($result) > 1) {
         $erro = $linha['adm'];
     }
 

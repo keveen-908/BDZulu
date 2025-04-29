@@ -8,6 +8,14 @@ $tamanhoMaximo = 1024 * 1024 * 5;//5MB
 $mysqli->begin_transaction();
 
 try {
+  
+    // Verifica se o usuário está logado
+    if (!isset($_SESSION['email']) || empty($_SESSION['senha'])) {
+        // Evita que continue se a sessão não estiver ativa
+        echo "Sessão expirada ou não autenticada. Faça login novamente.";
+        exit;
+    }
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       // Salva nome da operação

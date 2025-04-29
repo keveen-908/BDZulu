@@ -101,6 +101,10 @@
     $outrosDocumentos = $anexo['outrosDocumentos'];
     
     $imagens = json_decode($anexo['fotos'], true); // Converte JSON para array
+
+    $iniData = date("d/m/Y", strtotime($inicioOp));
+    $fimData = date("d/m/Y", strtotime($fimOp));
+
     
     
     $dirOperacao = "../uploads/". preg_replace("/[^a-zA-Z0-9_]/", "_", $operacao) . "/"; 
@@ -158,8 +162,8 @@
             <p><strong>Região Militar:</strong> <?= $rm; ?></p>
             <p><strong>Comando da Operação:</strong> <?= $comandoOp; ?></p>
             <p><strong>Organização Apoiada:</strong> <?= $comandoApoiado; ?></p>
-            <p><strong>Início da Operação:</strong> <?= $inicioOp; ?></p>
-            <p><strong>Término da Operação:</strong> <?= $fimOp; ?></p>
+            <p><strong>Início da Operação:</strong> <?= $iniData; ?></p>
+            <p><strong>Término da Operação:</strong> <?= $fimData; ?></p>
         </div>
         <br>
      
